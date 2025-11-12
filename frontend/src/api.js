@@ -7,8 +7,11 @@ import axios from "axios";
 
 // Buat instance axios dengan baseURL
 // Semua request akan otomatis prepend baseURL
+// Di production (Vercel), API dan frontend di domain yang sama, jadi pakai relative path
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL:
+    import.meta.env.VITE_API_URL ||
+    (import.meta.env.PROD ? "/api" : "http://localhost:5000/api"),
 });
 
 // ============================================

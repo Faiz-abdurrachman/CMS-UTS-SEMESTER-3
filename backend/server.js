@@ -27,7 +27,7 @@ const app = express();
 // Tanpa ini, browser akan memblokir request dari origin berbeda
 app.use(
   cors({
-    origin: "http://localhost:3000", // URL frontend React
+    origin: process.env.FRONTEND_URL || "http://localhost:3000", // URL frontend React
     credentials: true, // Izinkan cookies/credentials dikirim
   })
 );
