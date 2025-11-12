@@ -8,6 +8,7 @@ const router = express.Router();
 const adminController = require("../controllers/adminController");
 const { authenticate } = require("../middleware/authMiddleware");
 const { isAdmin } = require("../middleware/adminMiddleware");
+const upload = require("../middleware/upload");
 
 // ============================================
 // ROUTE DEFINITIONS
@@ -26,12 +27,38 @@ router.delete("/users/:id", authenticate, isAdmin, adminController.deleteUser);
 // GET /api/admin/items - Ambil semua items
 router.get("/items", authenticate, isAdmin, adminController.getAllItems);
 
+// POST /api/admin/items - Create item (untuk admin)
+router.post(
+  "/items",
+  authenticate,
+  isAdmin,
+  upload.single("image"),
+  adminController.createItem
+);
+
+// PUT /api/admin/items/:id - Update item (untuk admin - bisa update semua)
+router.put(
+  "/items/:id",
+  authenticate,
+  isAdmin,
+  upload.single("image"),
+  adminController.updateItem
+);
+
 // PUT /api/admin/items/:id/validate - Update validation status
 router.put(
   "/items/:id/validate",
   authenticate,
   isAdmin,
   adminController.updateValidationStatus
+);
+
+// PUT /api/admin/items/:id/resolve - Mark item as resolved (barang sudah ketemu)
+router.put(
+  "/items/:id/resolve",
+  authenticate,
+  isAdmin,
+  adminController.markAsResolved
 );
 
 // DELETE /api/admin/items/:id - Hapus item (admin bisa hapus semua)

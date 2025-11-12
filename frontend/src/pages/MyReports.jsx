@@ -18,7 +18,14 @@ export default function MyReports() {
   // FETCH MY REPORTS
   // ============================================
 
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
+    // Ambil user dari localStorage
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
     fetchMyReports();
   }, []);
 
@@ -35,23 +42,8 @@ export default function MyReports() {
     }
   };
 
-  // ============================================
-  // HANDLE DELETE ITEM
-  // ============================================
-
-  const handleDeleteItem = async (itemId) => {
-    if (!window.confirm("Yakin ingin menghapus laporan ini?")) {
-      return;
-    }
-
-    try {
-      await api.delete(`/items/${itemId}`);
-      toast.success("Laporan berhasil dihapus");
-      fetchMyReports(); // Refresh list
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Gagal menghapus laporan");
-    }
-  };
+  // Catatan: User tidak bisa hapus laporan (hanya admin yang bisa)
+  // Tombol delete sudah dihapus dari UI
 
   // Filter items
   const lostItems = items.filter((item) => item.status === "lost");
@@ -66,28 +58,34 @@ export default function MyReports() {
             Laporan Saya
           </h1>
           <p className="text-gray-600">
-            Kelola semua laporan barang hilang dan ditemukan yang Anda buat
+            Lihat semua laporan barang hilang dan ditemukan yang Anda buat.
+            Laporan akan divalidasi oleh admin sebelum muncul di dashboard
+            public.
           </p>
         </div>
 
         {/* Action Buttons */}
         <div className="mb-6 flex gap-4 flex-wrap">
           <Link to="/report-lost" className="btn btn-warning gap-2">
-            <span>📦</span> Laporkan Barang Hilang
+            <span>📦</span> Barang Saya Hilang
           </Link>
           <Link to="/report-found" className="btn btn-success gap-2">
-            <span>✅</span> Laporkan Barang Ditemukan
+            <span>✅</span> Saya Menemukan Barang
           </Link>
         </div>
 
         {/* Lost Items Section */}
         <section className="mb-12">
-          <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-            <span className="text-warning">🔍</span> Barang Hilang
+          <h2 className="text-2xl font-bold text-slate-800 mb-2 flex items-center gap-2">
+            <span className="text-warning">🔍</span> Barang Pribadi yang Hilang
             <span className="text-sm font-normal text-gray-500">
               ({lostItems.length} laporan)
             </span>
           </h2>
+          <p className="text-sm text-gray-600 mb-4">
+            Laporan barang pribadi Anda yang hilang. Status akan berubah menjadi
+            "Approved" setelah divalidasi admin.
+          </p>
           {loading ? (
             <div className="flex justify-center py-12">
               <span className="loading loading-spinner loading-lg"></span>
@@ -95,21 +93,18 @@ export default function MyReports() {
           ) : lostItems.length === 0 ? (
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body text-center py-12">
-                <p className="text-gray-500">Belum ada laporan barang hilang</p>
+                <p className="text-gray-500">
+                  Belum ada laporan barang pribadi yang hilang
+                </p>
                 <Link to="/report-lost" className="btn btn-warning btn-sm mt-4">
-                  Buat Laporan
+                  Laporkan Barang Hilang
                 </Link>
               </div>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {lostItems.map((item) => (
-                <CardItem
-                  key={item.id}
-                  item={item}
-                  onDelete={handleDeleteItem}
-                  showDelete={true}
-                />
+                <CardItem key={item.id} item={item} showDelete={false} />
               ))}
             </div>
           )}
@@ -117,12 +112,18 @@ export default function MyReports() {
 
         {/* Found Items Section */}
         <section>
-          <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-            <span className="text-success">✅</span> Barang Ditemukan
+          <h2 className="text-2xl font-bold text-slate-800 mb-2 flex items-center gap-2">
+            <span className="text-success">✅</span> Penemuan Barang (Bukan
+            Milik Anda)
             <span className="text-sm font-normal text-gray-500">
               ({foundItems.length} laporan)
             </span>
           </h2>
+          <p className="text-sm text-gray-600 mb-4">
+            Laporan barang yang Anda temukan di tempat random (bukan milik
+            Anda). Status akan berubah menjadi "Approved" setelah divalidasi
+            admin.
+          </p>
           {loading ? (
             <div className="flex justify-center py-12">
               <span className="loading loading-spinner loading-lg"></span>
@@ -131,25 +132,20 @@ export default function MyReports() {
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body text-center py-12">
                 <p className="text-gray-500">
-                  Belum ada laporan barang ditemukan
+                  Belum ada laporan penemuan barang
                 </p>
                 <Link
                   to="/report-found"
                   className="btn btn-success btn-sm mt-4"
                 >
-                  Buat Laporan
+                  Laporkan Penemuan Barang
                 </Link>
               </div>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {foundItems.map((item) => (
-                <CardItem
-                  key={item.id}
-                  item={item}
-                  onDelete={handleDeleteItem}
-                  showDelete={true}
-                />
+                <CardItem key={item.id} item={item} showDelete={false} />
               ))}
             </div>
           )}

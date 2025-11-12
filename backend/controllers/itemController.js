@@ -46,19 +46,30 @@ exports.createItem = async (req, res) => {
 };
 
 // ============================================
-// GET ALL ITEMS
+// GET ALL ITEMS (PUBLIC)
 // ============================================
 
-// Fungsi untuk mengambil semua items
-// JOIN dengan tabel users untuk ambil nama reporter
+// Fungsi untuk mengambil semua items untuk public dashboard
+// PENTING: Hanya menampilkan items yang sudah di-approve oleh admin
+// Items dengan status 'pending' atau 'rejected' TIDAK akan muncul
+// Items yang sudah resolved lebih dari 24 jam juga tidak muncul
 exports.getAll = async (req, res) => {
   try {
-    // Ambil semua items menggunakan model
-    const items = await Item.findAll();
+    // Ambil items untuk public (hanya approved dan belum expired)
+    // Filter dilakukan di database level untuk keamanan dan performa
+    const items = await Item.findAllPublic();
     res.json(items);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
+    console.error("Error in getAll items:", err);
+    console.error("Error details:", {
+      message: err.message,
+      code: err.code,
+      sql: err.sql,
+    });
+    res.status(500).json({
+      message: "Server error",
+      error: process.env.NODE_ENV === "development" ? err.message : undefined,
+    });
   }
 };
 
@@ -160,22 +171,23 @@ exports.deleteItem = async (req, res) => {
 
     // Jika item tidak ditemukan
     if (!item) {
-      return res.status(404).json({ message: "Not found" });
+      return res.status(404).json({ message: "Item not found" });
     }
 
-    // Cek apakah user adalah admin atau pemilik item
-    // req.user.role berasal dari middleware authenticate
-    // req.user.id adalah ID user yang sedang login
-    if (req.user.role !== "admin" && req.user.id !== item.user_id) {
-      return res.status(403).json({ message: "Forbidden" });
+    // Hanya admin yang bisa hapus item
+    // User tidak bisa hapus laporan mereka sendiri
+    if (req.user.role !== "admin") {
+      return res.status(403).json({
+        message: "Forbidden: Hanya admin yang bisa menghapus laporan",
+      });
     }
 
     // Hapus item dari database menggunakan model
     await Item.delete(req.params.id);
 
-    res.json({ message: "Deleted" });
+    res.json({ message: "Item deleted successfully" });
   } catch (err) {
-    console.error(err);
+    console.error("Error in deleteItem:", err);
     res.status(500).json({ message: "Server error" });
   }
 };

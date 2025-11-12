@@ -111,9 +111,13 @@ export default function ReportLost() {
     <div className="min-h-screen bg-base-200 py-12">
       <div className="max-w-2xl mx-auto px-4">
         <div className="card bg-base-100 shadow-xl p-8">
-          <h1 className="text-3xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+          <h1 className="text-3xl font-bold text-slate-800 mb-2 flex items-center gap-2">
             <span className="text-orange-500">📦</span> Laporkan Barang Hilang
           </h1>
+          <p className="text-gray-600 mb-6 text-sm">
+            Laporkan barang pribadi Anda yang hilang. Laporan akan divalidasi
+            oleh admin sebelum muncul di dashboard public.
+          </p>
 
           <form onSubmit={submit} className="space-y-4">
             {/* Nama Barang */}
@@ -150,14 +154,17 @@ export default function ReportLost() {
             {/* Lokasi */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Lokasi
+                Lokasi Hilang
               </label>
               <input
                 value={form.location}
                 onChange={(e) => setForm({ ...form, location: e.target.value })}
-                placeholder="Contoh: Parkiran Kampus, Ruang 101"
+                placeholder="Contoh: Parkiran Kampus, Ruang 101, dll"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
               />
+              <p className="text-xs text-gray-500 mt-1">
+                Lokasi di mana terakhir kali Anda melihat barang ini
+              </p>
             </div>
 
             {/* Tanggal */}

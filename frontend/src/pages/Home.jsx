@@ -32,9 +32,22 @@ export default function Home() {
     }
   };
 
-  // Filter items
-  const lostItems = items.filter((item) => item.status === "lost");
-  const foundItems = items.filter((item) => item.status === "found");
+  // Filter items menjadi 4 kategori terpisah:
+  // 1. Barang Pribadi yang Hilang (lost, belum resolved)
+  // 2. Menemukan Barang yang Hilang (found, belum resolved)
+  // 3. Barang Telah Ditemukan (resolved - sudah ditandai admin)
+
+  const lostItems = items.filter((item) => {
+    return item.status === "lost" && !item.resolved_at;
+  });
+
+  const foundItems = items.filter((item) => {
+    return item.status === "found" && !item.resolved_at;
+  });
+
+  const resolvedItems = items.filter((item) => {
+    return item.resolved_at !== null;
+  });
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -65,12 +78,19 @@ export default function Home() {
       <div className="container mx-auto px-4 py-12">
         {/* Lost Items */}
         <section className="mb-12">
-          <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-            <span className="text-orange-500">🔍</span> Barang Hilang
+          <h2 className="text-3xl font-bold text-slate-800 mb-2 flex items-center gap-2">
+            <span className="text-orange-500">🔍</span> Barang Pribadi yang
+            Hilang
             <span className="text-lg font-normal text-gray-500">
               ({lostItems.length} item)
             </span>
           </h2>
+          <p className="text-gray-600 mb-6 text-sm">
+            <strong>Barang milik pengguna yang hilang.</strong> Laporan dibuat
+            oleh pemilik barang yang kehilangan barang pribadinya. Status:{" "}
+            <span className="badge badge-warning badge-sm">Hilang</span> - Belum
+            ditemukan.
+          </p>
           {loading ? (
             <div className="flex justify-center py-12">
               <span className="loading loading-spinner loading-lg"></span>
@@ -92,14 +112,19 @@ export default function Home() {
           )}
         </section>
 
-        {/* Found Items */}
-        <section>
-          <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-            <span className="text-green-500">✅</span> Barang Ditemukan
+        {/* Found Items - Menemukan Barang yang Hilang */}
+        <section className="mb-12">
+          <h2 className="text-3xl font-bold text-slate-800 mb-2 flex items-center gap-2">
+            <span className="text-green-500">✅</span> Menemukan Barang yang
+            Hilang
             <span className="text-lg font-normal text-gray-500">
               ({foundItems.length} item)
             </span>
           </h2>
+          <p className="text-gray-600 mb-6 text-sm">
+            Barang yang ditemukan oleh orang lain (bukan milik mereka). Menunggu
+            pemilik asli.
+          </p>
           {loading ? (
             <div className="flex justify-center py-12">
               <span className="loading loading-spinner loading-lg"></span>
@@ -108,13 +133,52 @@ export default function Home() {
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body text-center py-12">
                 <p className="text-gray-500">
-                  Belum ada barang ditemukan yang dilaporkan
+                  Belum ada laporan penemuan barang
                 </p>
               </div>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {foundItems.map((item) => (
+                <CardItem key={item.id} item={item} />
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Resolved Items - Barang Telah Ditemukan */}
+        <section>
+          <h2 className="text-3xl font-bold text-slate-800 mb-2 flex items-center gap-2">
+            <span className="text-blue-500">🎉</span> Barang Telah Ditemukan
+            <span className="text-lg font-normal text-gray-500">
+              ({resolvedItems.length} item)
+            </span>
+          </h2>
+          <p className="text-gray-600 mb-6 text-sm">
+            <strong>
+              Barang yang sudah ditandai admin sebagai ditemukan/dikembalikan ke
+              pemilik.
+            </strong>{" "}
+            Barang ini akan otomatis hilang dari dashboard setelah 24 jam.
+            Status:{" "}
+            <span className="badge badge-info badge-sm">Sudah Ditemukan</span> -
+            Case closed.
+          </p>
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <span className="loading loading-spinner loading-lg"></span>
+            </div>
+          ) : resolvedItems.length === 0 ? (
+            <div className="card bg-base-100 shadow-xl">
+              <div className="card-body text-center py-12">
+                <p className="text-gray-500">
+                  Belum ada barang yang ditandai sebagai ditemukan
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {resolvedItems.map((item) => (
                 <CardItem key={item.id} item={item} />
               ))}
             </div>

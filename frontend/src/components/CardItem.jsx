@@ -39,14 +39,20 @@ export default function CardItem({ item, onDelete, showDelete = false }) {
       <div className="card-body">
         {/* Status Badge */}
         <div className="flex justify-between items-start mb-2">
-          <div className="flex gap-2">
-            <span
-              className={`badge ${
-                item.status === "lost" ? "badge-warning" : "badge-success"
-              }`}
-            >
-              {item.status === "lost" ? "🔍 Hilang" : "✅ Ditemukan"}
-            </span>
+          <div className="flex gap-2 flex-wrap">
+            {/* Badge untuk status item */}
+            {item.resolved_at ? (
+              <span className="badge badge-success">✅ Sudah Ditemukan</span>
+            ) : (
+              <span
+                className={`badge ${
+                  item.status === "lost" ? "badge-warning" : "badge-success"
+                }`}
+              >
+                {item.status === "lost" ? "🔍 Hilang" : "⏳ Menunggu Pemilik"}
+              </span>
+            )}
+            {/* Badge untuk validation status */}
             {item.validation_status && (
               <span
                 className={`badge badge-outline ${
