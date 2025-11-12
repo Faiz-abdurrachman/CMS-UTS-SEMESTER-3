@@ -27,16 +27,19 @@ export default function Navbar() {
 
   return (
     <nav className="navbar bg-base-100 shadow-lg">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-2 sm:px-4">
         <div className="flex-1">
           {/* Logo */}
-          <Link to="/" className="btn btn-ghost text-xl font-bold text-primary">
+          <Link
+            to="/"
+            className="btn btn-ghost text-lg sm:text-xl font-bold text-primary"
+          >
             Lost & Found
           </Link>
         </div>
         <div className="flex-none">
-          {/* Navigation Links */}
-          <ul className="menu menu-horizontal px-1 gap-2">
+          {/* Desktop Navigation */}
+          <ul className="hidden md:flex menu menu-horizontal px-1 gap-2">
             <li>
               <Link to="/">Home</Link>
             </li>
@@ -48,7 +51,7 @@ export default function Navbar() {
                   <>
                     <li>
                       <Link to="/admin" className="btn btn-primary btn-sm">
-                        👑 Admin Panel
+                        👑 Admin
                       </Link>
                     </li>
                     <li>
@@ -62,7 +65,9 @@ export default function Navbar() {
                             <span className="badge badge-warning mr-2">
                               Admin
                             </span>
-                            {user?.name}
+                            <span className="hidden lg:inline">
+                              {user?.name}
+                            </span>
                           </span>
                         </div>
                         <ul
@@ -85,17 +90,24 @@ export default function Navbar() {
                 ) : (
                   // Menu untuk User
                   <>
-                    <li>
+                    <li className="hidden lg:block">
                       <Link to="/dashboard">Dashboard</Link>
                     </li>
-                    <li>
+                    <li className="hidden lg:block">
                       <Link to="/my-reports">Laporan Saya</Link>
                     </li>
                     <li>
-                      <Link to="/report-lost">Laporkan Hilang</Link>
+                      <Link to="/report-lost" className="btn btn-warning btn-sm">
+                        📦 Hilang
+                      </Link>
                     </li>
                     <li>
-                      <Link to="/report-found">Laporkan Ditemukan</Link>
+                      <Link
+                        to="/report-found"
+                        className="btn btn-success btn-sm"
+                      >
+                        ✅ Ditemukan
+                      </Link>
                     </li>
                     <li>
                       <div className="dropdown dropdown-end">
@@ -105,7 +117,7 @@ export default function Navbar() {
                           className="btn btn-ghost btn-sm"
                         >
                           <span className="text-sm">
-                            Halo,{" "}
+                            <span className="hidden lg:inline">Halo, </span>
                             <span className="font-semibold">{user?.name}</span>
                           </span>
                         </div>
@@ -141,6 +153,78 @@ export default function Navbar() {
               </>
             )}
           </ul>
+
+          {/* Mobile Menu */}
+          <div className="dropdown dropdown-end md:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow mt-2"
+            >
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              {token ? (
+                <>
+                  {user?.role === "admin" ? (
+                    <>
+                      <li>
+                        <Link to="/admin">👑 Admin Panel</Link>
+                      </li>
+                      <li>
+                        <Link to="/dashboard">Dashboard User</Link>
+                      </li>
+                      <li>
+                        <button onClick={handleLogout}>Logout</button>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li>
+                        <Link to="/dashboard">Dashboard</Link>
+                      </li>
+                      <li>
+                        <Link to="/my-reports">Laporan Saya</Link>
+                      </li>
+                      <li>
+                        <Link to="/report-lost">📦 Laporkan Hilang</Link>
+                      </li>
+                      <li>
+                        <Link to="/report-found">✅ Laporkan Ditemukan</Link>
+                      </li>
+                      <li>
+                        <button onClick={handleLogout}>Logout</button>
+                      </li>
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link to="/login">Masuk</Link>
+                  </li>
+                  <li>
+                    <Link to="/register">Daftar</Link>
+                  </li>
+                </>
+              )}
+            </ul>
+          </div>
         </div>
       </div>
     </nav>

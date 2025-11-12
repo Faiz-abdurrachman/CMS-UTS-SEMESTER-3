@@ -274,31 +274,35 @@ export default function AdminDashboard() {
         <SidebarAdmin activeTab={activeTab} setActiveTab={setActiveTab} />
 
         {/* Main Content */}
-        <div className="flex-1 ml-64">
+        <div className="flex-1 md:ml-64">
           {/* Admin Header */}
           <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg">
-            <div className="p-6">
-              <div className="flex items-center justify-between">
+            <div className="p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                  <h1 className="text-3xl font-bold mb-2">Admin Dashboard</h1>
-                  <p className="text-purple-100">
+                  <h1 className="text-2xl sm:text-3xl font-bold mb-2">
+                    Admin Dashboard
+                  </h1>
+                  <p className="text-sm sm:text-base text-purple-100">
                     Kelola semua laporan dan pengguna sistem Lost & Found
                   </p>
                 </div>
-                <div className="text-right">
+                <div className="text-left sm:text-right">
                   <div className="badge badge-lg badge-warning text-white">
                     👑 Admin Mode
                   </div>
-                  <p className="text-sm text-purple-100 mt-2">{user?.name}</p>
+                  <p className="text-xs sm:text-sm text-purple-100 mt-2">
+                    {user?.name}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="p-8">
+          <div className="p-4 sm:p-6 lg:p-8">
             {/* Statistics Cards */}
             {statistics && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-6 sm:mb-8">
                 <div className="stat bg-base-100 rounded-lg shadow-lg">
                   <div className="stat-title">Total Users</div>
                   <div className="stat-value text-primary">
@@ -329,30 +333,34 @@ export default function AdminDashboard() {
             {/* Items Tab */}
             {activeTab === "items" && (
               <div>
-                <div className="flex justify-between items-center mb-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                   <div>
-                    <h2 className="text-3xl font-bold text-slate-800 mb-2">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800 mb-2">
                       📋 Kelola Laporan
                     </h2>
-                    <p className="text-gray-500">
+                    <p className="text-sm sm:text-base text-gray-500">
                       Validasi, setujui, atau tolak laporan dari pengguna. Admin
                       bisa CRUD semua laporan.
                     </p>
                   </div>
-                  <div className="flex gap-4 items-center">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center w-full sm:w-auto">
                     <Link
                       to="/report-lost"
-                      className="btn btn-warning btn-sm gap-2"
+                      className="btn btn-warning btn-sm gap-2 text-xs sm:text-sm"
                     >
-                      <span>📦</span> Tambah Laporan Hilang
+                      <span>📦</span>{" "}
+                      <span className="hidden sm:inline">Tambah Laporan Hilang</span>
+                      <span className="sm:hidden">Hilang</span>
                     </Link>
                     <Link
                       to="/report-found"
-                      className="btn btn-success btn-sm gap-2"
+                      className="btn btn-success btn-sm gap-2 text-xs sm:text-sm"
                     >
-                      <span>✅</span> Tambah Laporan Ditemukan
+                      <span>✅</span>{" "}
+                      <span className="hidden sm:inline">Tambah Laporan Ditemukan</span>
+                      <span className="sm:hidden">Ditemukan</span>
                     </Link>
-                    <div className="tabs tabs-boxed">
+                    <div className="tabs tabs-boxed text-xs sm:text-sm">
                       <button
                         className={`tab ${
                           filterStatus === "all" ? "tab-active" : ""
@@ -449,9 +457,9 @@ export default function AdminDashboard() {
 
                           {/* Action Buttons */}
                           {item.validation_status === "pending" && (
-                            <div className="flex gap-2 mt-2">
+                            <div className="flex flex-col sm:flex-row gap-2 mt-2">
                               <button
-                                className="btn btn-success btn-sm flex-1"
+                                className="btn btn-success btn-sm flex-1 text-xs sm:text-sm"
                                 onClick={() =>
                                   handleValidationStatus(item.id, "approved")
                                 }
@@ -459,7 +467,7 @@ export default function AdminDashboard() {
                                 Setujui
                               </button>
                               <button
-                                className="btn btn-error btn-sm flex-1"
+                                className="btn btn-error btn-sm flex-1 text-xs sm:text-sm"
                                 onClick={() =>
                                   handleValidationStatus(item.id, "rejected")
                                 }
@@ -481,15 +489,15 @@ export default function AdminDashboard() {
                             )}
 
                           {/* Action Buttons */}
-                          <div className="flex gap-2 mt-2">
+                          <div className="flex flex-col sm:flex-row gap-2 mt-2">
                             <button
-                              className="btn btn-primary btn-sm flex-1"
+                              className="btn btn-primary btn-sm flex-1 text-xs sm:text-sm"
                               onClick={() => handleOpenEditModal(item)}
                             >
                               ✏️ Edit
                             </button>
                             <button
-                              className="btn btn-error btn-sm flex-1"
+                              className="btn btn-error btn-sm flex-1 text-xs sm:text-sm"
                               onClick={() => handleDeleteItem(item.id)}
                             >
                               🗑️ Hapus
@@ -507,10 +515,10 @@ export default function AdminDashboard() {
             {activeTab === "users" && (
               <div>
                 <div className="mb-6">
-                  <h2 className="text-3xl font-bold text-slate-800 mb-2">
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800 mb-2">
                     👥 Kelola Users
                   </h2>
-                  <p className="text-gray-500">
+                  <p className="text-sm sm:text-base text-gray-500">
                     Lihat dan kelola semua pengguna yang terdaftar di sistem
                   </p>
                 </div>
@@ -520,8 +528,8 @@ export default function AdminDashboard() {
                     <span className="loading loading-spinner loading-lg"></span>
                   </div>
                 ) : (
-                  <div className="overflow-x-auto">
-                    <table className="table table-zebra w-full bg-base-100 shadow-xl">
+                  <div className="overflow-x-auto -mx-4 sm:mx-0">
+                    <table className="table table-zebra w-full bg-base-100 shadow-xl text-xs sm:text-sm">
                       <thead>
                         <tr>
                           <th>ID</th>
@@ -615,7 +623,7 @@ export default function AdminDashboard() {
       {/* Modal Edit Item */}
       {showEditModal && editingItem && (
         <div className="modal modal-open">
-          <div className="modal-box max-w-2xl">
+          <div className="modal-box max-w-2xl w-11/12 max-h-[90vh] overflow-y-auto">
             <h3 className="font-bold text-lg mb-4">✏️ Edit Laporan</h3>
 
             <div className="space-y-4">

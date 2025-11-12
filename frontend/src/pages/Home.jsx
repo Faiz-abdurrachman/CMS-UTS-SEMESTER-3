@@ -52,21 +52,24 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-primary to-purple-600 text-white py-16">
+      <div className="bg-gradient-to-r from-primary to-purple-600 text-white py-8 sm:py-12 lg:py-16">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             Lost & Found System
           </h1>
-          <p className="text-xl mb-8">
+          <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8">
             Temukan barang hilang atau laporkan barang yang ditemukan
           </p>
-          <div className="flex gap-4 justify-center">
-            <Link to="/register" className="btn btn-primary btn-lg">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <Link
+              to="/register"
+              className="btn btn-primary btn-lg text-sm sm:text-base"
+            >
               Daftar Sekarang
             </Link>
             <Link
               to="/login"
-              className="btn btn-outline btn-lg text-white border-white hover:bg-white hover:text-primary"
+              className="btn btn-outline btn-lg text-white border-white hover:bg-white hover:text-primary text-sm sm:text-base"
             >
               Masuk
             </Link>
@@ -78,10 +81,12 @@ export default function Home() {
       <div className="container mx-auto px-4 py-12">
         {/* Lost Items */}
         <section className="mb-12">
-          <h2 className="text-3xl font-bold text-slate-800 mb-2 flex items-center gap-2">
-            <span className="text-orange-500">🔍</span> Barang Pribadi yang
-            Hilang
-            <span className="text-lg font-normal text-gray-500">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800 mb-2 flex flex-wrap items-center gap-2">
+            <span className="text-orange-500">🔍</span>{" "}
+            <span className="text-base sm:text-xl lg:text-2xl">
+              Barang Pribadi yang Hilang
+            </span>
+            <span className="text-sm sm:text-lg font-normal text-gray-500">
               ({lostItems.length} item)
             </span>
           </h2>
@@ -114,10 +119,12 @@ export default function Home() {
 
         {/* Found Items - Menemukan Barang yang Hilang */}
         <section className="mb-12">
-          <h2 className="text-3xl font-bold text-slate-800 mb-2 flex items-center gap-2">
-            <span className="text-green-500">✅</span> Menemukan Barang yang
-            Hilang
-            <span className="text-lg font-normal text-gray-500">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800 mb-2 flex flex-wrap items-center gap-2">
+            <span className="text-green-500">✅</span>{" "}
+            <span className="text-base sm:text-xl lg:text-2xl">
+              Menemukan Barang yang Hilang
+            </span>
+            <span className="text-sm sm:text-lg font-normal text-gray-500">
               ({foundItems.length} item)
             </span>
           </h2>
@@ -148,9 +155,12 @@ export default function Home() {
 
         {/* Resolved Items - Barang Telah Ditemukan */}
         <section>
-          <h2 className="text-3xl font-bold text-slate-800 mb-2 flex items-center gap-2">
-            <span className="text-blue-500">🎉</span> Barang Telah Ditemukan
-            <span className="text-lg font-normal text-gray-500">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800 mb-2 flex flex-wrap items-center gap-2">
+            <span className="text-blue-500">🎉</span>{" "}
+            <span className="text-base sm:text-xl lg:text-2xl">
+              Barang Telah Ditemukan
+            </span>
+            <span className="text-sm sm:text-lg font-normal text-gray-500">
               ({resolvedItems.length} item)
             </span>
           </h2>

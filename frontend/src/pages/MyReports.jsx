@@ -50,14 +50,14 @@ export default function MyReports() {
   const foundItems = items.filter((item) => item.status === "found");
 
   return (
-    <div className="min-h-screen bg-base-200 py-8">
+    <div className="min-h-screen bg-base-200 py-6 sm:py-8">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-800 mb-2">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2">
             Laporan Saya
           </h1>
-          <p className="text-gray-600">
+          <p className="text-sm sm:text-base text-gray-600">
             Lihat semua laporan barang hilang dan ditemukan yang Anda buat.
             Laporan akan divalidasi oleh admin sebelum muncul di dashboard
             public.
@@ -65,19 +65,30 @@ export default function MyReports() {
         </div>
 
         {/* Action Buttons */}
-        <div className="mb-6 flex gap-4 flex-wrap">
-          <Link to="/report-lost" className="btn btn-warning gap-2">
-            <span>📦</span> Barang Saya Hilang
+        <div className="mb-6 flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <Link
+            to="/report-lost"
+            className="btn btn-warning gap-2 text-sm sm:text-base"
+          >
+            <span>📦</span>{" "}
+            <span className="hidden sm:inline">Barang Saya Hilang</span>
+            <span className="sm:hidden">Hilang</span>
           </Link>
-          <Link to="/report-found" className="btn btn-success gap-2">
-            <span>✅</span> Saya Menemukan Barang
+          <Link
+            to="/report-found"
+            className="btn btn-success gap-2 text-sm sm:text-base"
+          >
+            <span>✅</span>{" "}
+            <span className="hidden sm:inline">Saya Menemukan Barang</span>
+            <span className="sm:hidden">Ditemukan</span>
           </Link>
         </div>
 
         {/* Lost Items Section */}
         <section className="mb-12">
-          <h2 className="text-2xl font-bold text-slate-800 mb-2 flex items-center gap-2">
-            <span className="text-warning">🔍</span> Barang Pribadi yang Hilang
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 flex flex-wrap items-center gap-2">
+            <span className="text-warning">🔍</span>{" "}
+            <span className="text-base sm:text-xl">Barang Pribadi yang Hilang</span>
             <span className="text-sm font-normal text-gray-500">
               ({lostItems.length} laporan)
             </span>
@@ -112,9 +123,11 @@ export default function MyReports() {
 
         {/* Found Items Section */}
         <section>
-          <h2 className="text-2xl font-bold text-slate-800 mb-2 flex items-center gap-2">
-            <span className="text-success">✅</span> Penemuan Barang (Bukan
-            Milik Anda)
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 flex flex-wrap items-center gap-2">
+            <span className="text-success">✅</span>{" "}
+            <span className="text-base sm:text-xl">
+              Penemuan Barang (Bukan Milik Anda)
+            </span>
             <span className="text-sm font-normal text-gray-500">
               ({foundItems.length} laporan)
             </span>

@@ -79,27 +79,33 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex justify-between items-center">
+        <div className="container mx-auto px-4 py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <h1 className="text-3xl font-bold mb-2">Lost & Found System</h1>
-              <p className="text-blue-100">
+              <h1 className="text-2xl sm:text-3xl font-bold mb-2">
+                Lost & Found System
+              </h1>
+              <p className="text-blue-100 text-sm sm:text-base">
                 Selamat datang,{" "}
                 <span className="font-semibold text-white">{user?.name}</span>
               </p>
             </div>
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
               <Link
                 to="/report-lost"
-                className="btn btn-warning gap-2 hover:scale-105 transition-transform"
+                className="btn btn-warning gap-2 hover:scale-105 transition-transform text-sm sm:text-base"
               >
-                <span>📦</span> Barang Saya Hilang
+                <span>📦</span>{" "}
+                <span className="hidden sm:inline">Barang Saya Hilang</span>
+                <span className="sm:hidden">Hilang</span>
               </Link>
               <Link
                 to="/report-found"
-                className="btn btn-success gap-2 hover:scale-105 transition-transform"
+                className="btn btn-success gap-2 hover:scale-105 transition-transform text-sm sm:text-base"
               >
-                <span>✅</span> Saya Menemukan Barang
+                <span>✅</span>{" "}
+                <span className="hidden sm:inline">Saya Menemukan Barang</span>
+                <span className="sm:hidden">Ditemukan</span>
               </Link>
             </div>
           </div>
@@ -124,12 +130,14 @@ export default function Dashboard() {
 
         {/* Lost Items */}
         <section className="mb-12">
-          <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-            <h2 className="text-3xl font-bold text-slate-800 mb-2 flex items-center gap-2">
-              <span className="text-orange-500">🔍</span> Barang Pribadi yang
-              Hilang
+          <div className="bg-white rounded-lg shadow-md p-3 sm:p-4 mb-4">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800 mb-2 flex flex-wrap items-center gap-2">
+              <span className="text-orange-500">🔍</span>{" "}
+              <span className="text-base sm:text-xl lg:text-2xl">
+                Barang Pribadi yang Hilang
+              </span>
             </h2>
-            <p className="text-gray-600 mb-2">
+            <p className="text-sm sm:text-base text-gray-600 mb-2">
               <strong>Barang milik pengguna yang hilang.</strong> Laporan dibuat
               oleh pemilik barang yang kehilangan barang pribadinya. Status:{" "}
               <span className="badge badge-warning badge-sm">Hilang</span> -
@@ -162,12 +170,14 @@ export default function Dashboard() {
 
         {/* Found Items - Menemukan Barang yang Hilang */}
         <section className="mb-12">
-          <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-            <h2 className="text-3xl font-bold text-slate-800 mb-2 flex items-center gap-2">
-              <span className="text-green-500">✅</span> Menemukan Barang yang
-              Hilang
+          <div className="bg-white rounded-lg shadow-md p-3 sm:p-4 mb-4">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800 mb-2 flex flex-wrap items-center gap-2">
+              <span className="text-green-500">✅</span>{" "}
+              <span className="text-base sm:text-xl lg:text-2xl">
+                Menemukan Barang yang Hilang
+              </span>
             </h2>
-            <p className="text-gray-600 mb-2">
+            <p className="text-sm sm:text-base text-gray-600 mb-2">
               Barang yang ditemukan oleh orang lain (bukan milik mereka).
               Menunggu pemilik asli.
             </p>
@@ -198,11 +208,14 @@ export default function Dashboard() {
 
         {/* Resolved Items - Barang Telah Ditemukan */}
         <section>
-          <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-            <h2 className="text-3xl font-bold text-slate-800 mb-2 flex items-center gap-2">
-              <span className="text-blue-500">🎉</span> Barang Telah Ditemukan
+          <div className="bg-white rounded-lg shadow-md p-3 sm:p-4 mb-4">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800 mb-2 flex flex-wrap items-center gap-2">
+              <span className="text-blue-500">🎉</span>{" "}
+              <span className="text-base sm:text-xl lg:text-2xl">
+                Barang Telah Ditemukan
+              </span>
             </h2>
-            <p className="text-gray-600 mb-2">
+            <p className="text-sm sm:text-base text-gray-600 mb-2">
               <strong>
                 Barang yang sudah ditandai admin sebagai ditemukan/dikembalikan
                 ke pemilik.

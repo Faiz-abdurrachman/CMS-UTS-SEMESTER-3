@@ -108,10 +108,10 @@ export default function ReportLost() {
   };
 
   return (
-    <div className="min-h-screen bg-base-200 py-12">
+    <div className="min-h-screen bg-base-200 py-6 sm:py-12">
       <div className="max-w-2xl mx-auto px-4">
-        <div className="card bg-base-100 shadow-xl p-8">
-          <h1 className="text-3xl font-bold text-slate-800 mb-2 flex items-center gap-2">
+        <div className="card bg-base-100 shadow-xl p-4 sm:p-6 lg:p-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2 flex items-center gap-2">
             <span className="text-orange-500">📦</span> Laporkan Barang Hilang
           </h1>
           <p className="text-gray-600 mb-6 text-sm">
@@ -212,11 +212,11 @@ export default function ReportLost() {
             )}
 
             {/* Submit Button */}
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button
                 type="submit"
                 disabled={loading}
-                className={`flex-1 bg-orange-600 text-white p-3 rounded-lg font-semibold transition-all duration-200 ${
+                className={`flex-1 bg-orange-600 text-white p-3 rounded-lg font-semibold transition-all duration-200 text-sm sm:text-base ${
                   loading
                     ? "bg-gray-400 cursor-not-allowed"
                     : "hover:bg-orange-700 hover:shadow-lg"
@@ -227,7 +227,7 @@ export default function ReportLost() {
               <button
                 type="button"
                 onClick={() => navigate("/dashboard")}
-                className="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-all duration-200"
+                className="px-4 sm:px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-all duration-200 text-sm sm:text-base"
               >
                 Batal
               </button>

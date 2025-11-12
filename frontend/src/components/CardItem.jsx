@@ -26,9 +26,9 @@ export default function CardItem({ item, onDelete, showDelete = false }) {
     <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-200">
       {/* Gambar */}
       {item.image && (
-        <figure className="h-48 overflow-hidden">
+        <figure className="h-48 sm:h-56 overflow-hidden">
           <img
-            src={`http://localhost:5000/uploads/${item.image}`}
+            src={`${import.meta.env.PROD ? "/api" : "http://localhost:5000"}/uploads/${item.image}`}
             alt={item.name}
             className="w-full h-full object-cover"
           />
