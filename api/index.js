@@ -24,7 +24,7 @@ const app = express();
 // CORS - Allow semua origin untuk Vercel deployment
 app.use(
   cors({
-    origin: "*", // Vercel akan handle CORS
+    origin: "*",
     credentials: true,
   })
 );
@@ -62,5 +62,5 @@ app.use((err, req, res, next) => {
 });
 
 // Export untuk Vercel Serverless Functions
-// Vercel akan otomatis wrap ini sebagai serverless function
+// Vercel akan otomatis wrap Express app sebagai serverless function
 module.exports = app;
