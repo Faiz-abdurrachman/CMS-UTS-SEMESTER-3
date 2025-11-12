@@ -34,3 +34,6 @@ uploads/
 # Docs
 docs/
 
+# Temporary files
+COMMIT_MESSAGE.txt
+
