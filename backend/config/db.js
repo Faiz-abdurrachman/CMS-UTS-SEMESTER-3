@@ -20,6 +20,12 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME || "lostfound_db", // Nama database
   waitForConnections: true, // Tunggu jika semua koneksi sedang digunakan
   connectionLimit: 10, // Maksimal 10 koneksi dalam pool
+  // Tambahan untuk production (cloud database)
+  ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,
+  // Timeout settings
+  connectTimeout: 10000, // 10 detik
+  acquireTimeout: 10000,
+  timeout: 10000,
 });
 
 // ============================================
