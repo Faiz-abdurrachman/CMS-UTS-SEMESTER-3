@@ -45,9 +45,11 @@ app.use("/uploads", express.static(path.join(__dirname, "../backend/uploads")));
 app.get("/", (req, res) => res.json({ message: "Lost & Found API running" }));
 
 // API Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/items", itemRoutes);
-app.use("/api/admin", adminRoutes);
+// Note: Vercel sudah handle prefix /api untuk serverless functions
+// Jadi kita tidak perlu tambahkan /api lagi di sini
+app.use("/auth", authRoutes);
+app.use("/items", itemRoutes);
+app.use("/admin", adminRoutes);
 
 // ============================================
 // ERROR HANDLING
