@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "backend",
   "version": "1.0.0",
   "description": "",
@@ -12,6 +13,17 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+=======
+  "name": "cms-lost-found",
+  "version": "1.0.0",
+  "description": "Lost & Found CMS - Full Stack Application",
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build"
+  },
+>>>>>>> e95573c5588adf165880716ba1cc8ff38dfb17f5
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
@@ -21,7 +33,15 @@
     "multer": "^2.0.2",
     "mysql2": "^3.15.3"
   },
+<<<<<<< HEAD
   "devDependencies": {
     "nodemon": "^3.1.10"
+=======
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18"
+>>>>>>> e95573c5588adf165880716ba1cc8ff38dfb17f5
   }
 }
