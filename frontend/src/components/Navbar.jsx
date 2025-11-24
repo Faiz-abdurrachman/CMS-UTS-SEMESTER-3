@@ -1,6 +1,6 @@
 // ============================================
 // FILE: src/components/Navbar.jsx
-// DESKRIPSI: Komponen navbar dengan navigation links
+// DESKRIPSI: Komponen navbar dengan navigation links - Modern Design
 // ============================================
 
 import { Link, useNavigate } from "react-router-dom";
@@ -17,213 +17,190 @@ export default function Navbar() {
   // ============================================
 
   const handleLogout = () => {
-    // Hapus token dan user dari localStorage
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-
-    // Redirect ke home
     navigate("/");
   };
 
   return (
-    <nav className="navbar bg-base-100 shadow-lg">
-      <div className="container mx-auto px-2 sm:px-4">
-        <div className="flex-1">
+    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-sm bg-white/95">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link
             to="/"
-            className="btn btn-ghost text-lg sm:text-xl font-bold text-primary"
+            className="text-2xl font-display font-bold text-primary hover:text-primary-light transition-colors"
           >
-            Lost & Found
+            Found It!
           </Link>
-        </div>
-        <div className="flex-none">
+
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex menu menu-horizontal px-1 gap-2">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
+          <div className="hidden md:flex items-center gap-6">
+            <Link
+              to="/"
+              className="text-gray-700 hover:text-primary transition-colors font-medium"
+            >
+              Home
+            </Link>
 
             {token ? (
               <>
                 {user?.role === "admin" ? (
-                  // Menu untuk Admin
                   <>
-                    <li>
-                      <Link to="/admin" className="btn btn-primary btn-sm">
-                        👑 Admin
-                      </Link>
-                    </li>
-                    <li>
-                      <div className="dropdown dropdown-end">
-                        <div
-                          tabIndex={0}
-                          role="button"
-                          className="btn btn-ghost btn-sm"
-                        >
-                          <span className="text-sm">
-                            <span className="badge badge-warning mr-2">
-                              Admin
-                            </span>
-                            <span className="hidden lg:inline">
-                              {user?.name}
-                            </span>
-                          </span>
-                        </div>
-                        <ul
-                          tabIndex={0}
-                          className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
-                        >
-                          <li>
-                            <Link to="/admin">Admin Dashboard</Link>
-                          </li>
-                          <li>
-                            <Link to="/dashboard">Lihat Dashboard User</Link>
-                          </li>
-                          <li>
-                            <button onClick={handleLogout}>Logout</button>
-                          </li>
-                        </ul>
+                    <Link
+                      to="/admin"
+                      className="px-4 py-2 bg-accent text-primary rounded-lg font-semibold hover:bg-accent-dark transition-all duration-200"
+                    >
+                      Admin Panel
+                    </Link>
+                    <div className="flex items-center gap-3">
+                      <div className="text-right">
+                        <p className="text-sm font-medium text-gray-900">
+                          {user?.name}
+                        </p>
+                        <p className="text-xs text-gray-500">Admin</p>
                       </div>
-                    </li>
+                      <button
+                        onClick={handleLogout}
+                        className="px-4 py-2 text-gray-700 hover:text-primary transition-colors font-medium"
+                      >
+                        Logout
+                      </button>
+                    </div>
                   </>
                 ) : (
-                  // Menu untuk User
                   <>
-                    <li className="hidden lg:block">
-                      <Link to="/dashboard">Dashboard</Link>
-                    </li>
-                    <li className="hidden lg:block">
-                      <Link to="/my-reports">Laporan Saya</Link>
-                    </li>
-                    <li>
-                      <Link to="/report-lost" className="btn btn-warning btn-sm">
-                        📦 Hilang
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/report-found"
-                        className="btn btn-success btn-sm"
-                      >
-                        ✅ Ditemukan
-                      </Link>
-                    </li>
-                    <li>
-                      <div className="dropdown dropdown-end">
-                        <div
-                          tabIndex={0}
-                          role="button"
-                          className="btn btn-ghost btn-sm"
-                        >
-                          <span className="text-sm">
-                            <span className="hidden lg:inline">Halo, </span>
-                            <span className="font-semibold">{user?.name}</span>
-                          </span>
-                        </div>
-                        <ul
-                          tabIndex={0}
-                          className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
-                        >
-                          <li>
-                            <Link to="/dashboard">Dashboard</Link>
-                          </li>
-                          <li>
-                            <Link to="/my-reports">Laporan Saya</Link>
-                          </li>
-                          <li>
-                            <button onClick={handleLogout}>Logout</button>
-                          </li>
-                        </ul>
+                    <Link
+                      to="/dashboard"
+                      className="text-gray-700 hover:text-primary transition-colors font-medium"
+                    >
+                      Dashboard
+                    </Link>
+                    <Link
+                      to="/my-reports"
+                      className="text-gray-700 hover:text-primary transition-colors font-medium"
+                    >
+                      My Reports
+                    </Link>
+                    <div className="flex items-center gap-3">
+                      <div className="text-right">
+                        <p className="text-sm font-medium text-gray-900">
+                          {user?.name}
+                        </p>
                       </div>
-                    </li>
+                      <button
+                        onClick={handleLogout}
+                        className="px-4 py-2 text-gray-700 hover:text-primary transition-colors font-medium"
+                      >
+                        Logout
+                      </button>
+                    </div>
                   </>
                 )}
               </>
             ) : (
               <>
-                <li>
-                  <Link to="/login">Masuk</Link>
-                </li>
-                <li>
-                  <Link to="/register" className="btn btn-primary btn-sm">
-                    Daftar
-                  </Link>
-                </li>
+                <Link
+                  to="/login"
+                  className="text-gray-700 hover:text-primary transition-colors font-medium"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  className="px-4 py-2 bg-accent text-primary rounded-lg font-semibold hover:bg-accent-dark transition-all duration-200"
+                >
+                  Sign Up
+                </Link>
               </>
             )}
-          </ul>
+          </div>
 
-          {/* Mobile Menu */}
-          <div className="dropdown dropdown-end md:hidden">
-            <div tabIndex={0} role="button" className="btn btn-ghost">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <div className="dropdown dropdown-end">
+              <div tabIndex={0} role="button" className="btn btn-ghost btn-sm">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu bg-white rounded-lg shadow-lg w-52 p-2 border border-gray-200 mt-2"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+                <li>
+                  <Link to="/" className="text-gray-700">
+                    Home
+                  </Link>
+                </li>
+                {token ? (
+                  <>
+                    {user?.role === "admin" ? (
+                      <>
+                        <li>
+                          <Link to="/admin" className="text-gray-700">
+                            Admin Panel
+                          </Link>
+                        </li>
+                        <li>
+                          <button
+                            onClick={handleLogout}
+                            className="text-gray-700"
+                          >
+                            Logout
+                          </button>
+                        </li>
+                      </>
+                    ) : (
+                      <>
+                        <li>
+                          <Link to="/dashboard" className="text-gray-700">
+                            Dashboard
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/my-reports" className="text-gray-700">
+                            My Reports
+                          </Link>
+                        </li>
+                        <li>
+                          <button
+                            onClick={handleLogout}
+                            className="text-gray-700"
+                          >
+                            Logout
+                          </button>
+                        </li>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <li>
+                      <Link to="/login" className="text-gray-700">
+                        Sign In
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/register" className="text-gray-700">
+                        Sign Up
+                      </Link>
+                    </li>
+                  </>
+                )}
+              </ul>
             </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow mt-2"
-            >
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              {token ? (
-                <>
-                  {user?.role === "admin" ? (
-                    <>
-                      <li>
-                        <Link to="/admin">👑 Admin Panel</Link>
-                      </li>
-                      <li>
-                        <Link to="/dashboard">Dashboard User</Link>
-                      </li>
-                      <li>
-                        <button onClick={handleLogout}>Logout</button>
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      <li>
-                        <Link to="/dashboard">Dashboard</Link>
-                      </li>
-                      <li>
-                        <Link to="/my-reports">Laporan Saya</Link>
-                      </li>
-                      <li>
-                        <Link to="/report-lost">📦 Laporkan Hilang</Link>
-                      </li>
-                      <li>
-                        <Link to="/report-found">✅ Laporkan Ditemukan</Link>
-                      </li>
-                      <li>
-                        <button onClick={handleLogout}>Logout</button>
-                      </li>
-                    </>
-                  )}
-                </>
-              ) : (
-                <>
-                  <li>
-                    <Link to="/login">Masuk</Link>
-                  </li>
-                  <li>
-                    <Link to="/register">Daftar</Link>
-                  </li>
-                </>
-              )}
-            </ul>
           </div>
         </div>
       </div>

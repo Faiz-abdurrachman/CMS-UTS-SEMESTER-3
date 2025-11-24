@@ -1,10 +1,10 @@
 // ============================================
 // FILE: src/pages/Register.jsx
-// DESKRIPSI: Halaman registrasi user baru
+// DESKRIPSI: Halaman registrasi user baru - Modern Design
 // ============================================
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../api";
 import toast from "react-hot-toast";
 
@@ -29,9 +29,8 @@ export default function Register() {
   const submit = async (e) => {
     e.preventDefault();
 
-    // Validasi
     if (!form.name || !form.email || !form.password) {
-      setError("Semua field harus diisi!");
+      setError("All fields are required!");
       return;
     }
 
@@ -39,17 +38,12 @@ export default function Register() {
     setError("");
 
     try {
-      // Kirim POST request ke backend
-      // api.post() otomatis menggunakan baseURL + '/auth/register'
       await api.post("/auth/register", form);
-
-      // Jika sukses, redirect ke login
-      toast.success("Registrasi berhasil! Silakan login.");
+      toast.success("Registration successful! Please login.");
       navigate("/login");
     } catch (err) {
-      // Tangkap error dari backend
       const errorMessage =
-        err.response?.data?.message || "Terjadi kesalahan. Coba lagi!";
+        err.response?.data?.message || "An error occurred. Please try again!";
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -58,91 +52,121 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center p-4">
-      <div className="max-w-md w-full card bg-base-100 shadow-2xl p-8">
-        <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
-            👤 Daftar Akun User
+    <div className="min-h-screen bg-gray-50 flex">
+      {/* Left Section - Decorative Text */}
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary to-primary-light items-center justify-center p-12">
+        <div className="max-w-md">
+          <h1 className="text-5xl sm:text-6xl font-display font-bold text-white mb-6 leading-tight">
+            Let's find
+            <br />
+            your stuff
+            <br />
+            back!
           </h1>
-          <p className="text-sm text-gray-500 mb-4">
-            Daftar sebagai User untuk menggunakan layanan Lost & Found
+          <p className="text-white/90 text-lg">
+            Join our community and help others find their lost items
           </p>
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-3 rounded mb-4">
-            <p className="text-xs text-blue-700 text-left">
-              <strong>Catatan:</strong> Registrasi ini hanya untuk User biasa.
-              Akun Admin dibuat secara manual oleh administrator sistem untuk
-              keamanan.
+        </div>
+      </div>
+
+      {/* Right Section - Register Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-8 lg:p-12">
+        <div className="w-full max-w-md">
+          <div className="mb-8">
+            <h2 className="text-3xl font-display font-bold text-primary mb-2">
+              Create Account
+            </h2>
+            <p className="text-gray-600 text-sm">
+              Sign up as User to use Lost & Found services
             </p>
           </div>
-        </div>
 
-        <form onSubmit={submit} className="space-y-4">
-          {/* Name Input */}
-          <div>
-            <input
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              placeholder="Nama Lengkap"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-              required
-            />
-          </div>
-
-          {/* Email Input */}
-          <div>
-            <input
-              type="email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              placeholder="Email"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-              required
-            />
-          </div>
-
-          {/* Password Input */}
-          <div>
-            <input
-              type="password"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              placeholder="Password"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-              required
-            />
-          </div>
-
-          {/* Error Message */}
-          {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
-              {error}
+          <form onSubmit={submit} className="space-y-5">
+            {/* Name Input */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Full Name
+              </label>
+              <input
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                placeholder="Enter your full name"
+                className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-200 text-gray-900 placeholder-gray-400"
+                required
+              />
             </div>
-          )}
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className={`w-full bg-blue-600 text-white p-3 rounded-lg font-semibold transition-all duration-200 ${
-              loading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "hover:bg-blue-700 hover:shadow-lg"
-            }`}
-          >
-            {loading ? "Mendaftar..." : "Daftar"}
-          </button>
+            {/* Email Input */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                placeholder="Enter your email"
+                className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-200 text-gray-900 placeholder-gray-400"
+                required
+              />
+            </div>
 
-          {/* Link ke Login */}
-          <p className="text-center text-gray-600 text-sm">
-            Sudah punya akun?{" "}
-            <a
-              href="/login"
-              className="text-blue-600 hover:text-blue-700 font-semibold"
+            {/* Password Input */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                placeholder="Create a password"
+                className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-200 text-gray-900 placeholder-gray-400"
+                required
+              />
+            </div>
+
+            {/* Error Message */}
+            {error && (
+              <div className="bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
+
+            {/* Info Box */}
+            <div className="bg-blue-50 border-l-4 border-accent p-4 rounded-r-lg">
+              <p className="text-xs text-gray-700 text-left">
+                <strong>Note:</strong> Registration is for regular users only.
+                Admin accounts are created manually by system administrators for
+                security.
+              </p>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 ${
+                loading
+                  ? "bg-gray-400 cursor-not-allowed text-white"
+                  : "bg-accent text-primary hover:bg-accent-dark shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              }`}
             >
-              Masuk
-            </a>
-          </p>
-        </form>
+              {loading ? "Creating account..." : "Sign Up →"}
+            </button>
+
+            {/* Link ke Login */}
+            <p className="text-center text-sm text-gray-600">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="text-accent-dark font-semibold hover:text-primary transition-colors"
+              >
+                Sign In
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );

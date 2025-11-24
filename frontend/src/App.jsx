@@ -8,6 +8,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -42,65 +43,74 @@ const ProtectedRoute = ({ children, requireAdmin = false }) => {
   return children;
 };
 
+function AppContent() {
+  const location = useLocation();
+  const isAdminPage = location.pathname === "/admin";
+
+  return (
+    <div className="min-h-screen bg-white flex flex-col">
+      {!isAdminPage && <Navbar />}
+      <main className="flex-1">
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+          {/* Protected Routes (User) */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/report-lost"
+            element={
+              <ProtectedRoute>
+                <ReportLost />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/report-found"
+            element={
+              <ProtectedRoute>
+                <ReportFound />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/my-reports"
+            element={
+              <ProtectedRoute>
+                <MyReports />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Protected Routes (Admin Only) */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </main>
+      {!isAdminPage && <Footer />}
+    </div>
+  );
+}
+
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-base-200 flex flex-col">
-        <Navbar />
-        <main className="flex-1">
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-
-            {/* Protected Routes (User) */}
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/report-lost"
-              element={
-                <ProtectedRoute>
-                  <ReportLost />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/report-found"
-              element={
-                <ProtectedRoute>
-                  <ReportFound />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/my-reports"
-              element={
-                <ProtectedRoute>
-                  <MyReports />
-                </ProtectedRoute>
-              }
-            />
-
-            {/* Protected Routes (Admin Only) */}
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute requireAdmin={true}>
-                  <AdminDashboard />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <AppContent />
     </Router>
   );
 }

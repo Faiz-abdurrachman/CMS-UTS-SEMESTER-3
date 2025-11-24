@@ -1,21 +1,27 @@
 // ============================================
 // FILE: src/components/Footer.jsx
-// DESKRIPSI: Komponen footer untuk aplikasi
+// DESKRIPSI: Komponen footer untuk aplikasi - Modern Clean Design
 // ============================================
 
 export default function Footer() {
   return (
-    <footer className="footer footer-center bg-base-300 text-base-content p-10 mt-auto">
-      <div>
-        <h3 className="text-xl font-bold">Lost & Found System</h3>
-        <p className="text-sm text-gray-600">
-          Temukan barang hilang atau laporkan barang yang ditemukan
-        </p>
-      </div>
-      <div>
-        <p className="text-sm">
-          © {new Date().getFullYear()} Lost & Found System. All rights reserved.
-        </p>
+    <footer className="bg-white border-t border-gray-200 mt-auto">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="text-center md:text-left">
+            <h3 className="text-xl font-display font-bold text-primary mb-1">
+              Found It!
+            </h3>
+            <p className="text-sm text-gray-600">
+              Find lost items and report found items
+            </p>
+          </div>
+          <div className="text-center md:text-right">
+            <p className="text-sm text-gray-500">
+              © {new Date().getFullYear()} Found It!. All rights reserved.
+            </p>
+          </div>
+        </div>
       </div>
     </footer>
   );

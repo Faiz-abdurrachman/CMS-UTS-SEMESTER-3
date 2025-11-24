@@ -11,6 +11,7 @@ export default defineConfig({
   plugins: [react()], // Plugin untuk support React JSX
   server: {
     port: 3000, // Port untuk development server
+    host: "0.0.0.0", // Allow access dari network (untuk mobile)
     open: true, // Otomatis buka browser saat dev server start
     proxy: {
       // Proxy untuk API requests

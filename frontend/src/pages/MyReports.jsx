@@ -1,6 +1,6 @@
 // ============================================
 // FILE: src/pages/MyReports.jsx
-// DESKRIPSI: Halaman untuk melihat laporan milik user sendiri
+// DESKRIPSI: Halaman untuk melihat laporan milik user sendiri - Modern Design
 // ============================================
 
 import { useState, useEffect } from "react";
@@ -10,18 +10,15 @@ import CardItem from "../components/CardItem";
 import toast from "react-hot-toast";
 
 export default function MyReports() {
-  // State untuk items
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   // ============================================
   // FETCH MY REPORTS
   // ============================================
 
-  const [user, setUser] = useState(null);
-
   useEffect(() => {
-    // Ambil user dari localStorage
     const userData = localStorage.getItem("user");
     if (userData) {
       setUser(JSON.parse(userData));
@@ -36,81 +33,76 @@ export default function MyReports() {
       setItems(response.data);
     } catch (err) {
       console.error("Error fetching my reports:", err);
-      toast.error("Gagal memuat laporan");
+      toast.error("Failed to load reports");
     } finally {
       setLoading(false);
     }
   };
-
-  // Catatan: User tidak bisa hapus laporan (hanya admin yang bisa)
-  // Tombol delete sudah dihapus dari UI
 
   // Filter items
   const lostItems = items.filter((item) => item.status === "lost");
   const foundItems = items.filter((item) => item.status === "found");
 
   return (
-    <div className="min-h-screen bg-base-200 py-6 sm:py-8">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-gray-50 py-8 sm:py-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2">
-            Laporan Saya
+        <div className="mb-8">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-primary mb-3">
+            My Reports
           </h1>
-          <p className="text-sm sm:text-base text-gray-600">
-            Lihat semua laporan barang hilang dan ditemukan yang Anda buat.
-            Laporan akan divalidasi oleh admin sebelum muncul di dashboard
-            public.
+          <p className="text-gray-600 text-sm sm:text-base max-w-3xl">
+            View all lost and found item reports you've created. Reports will be
+            validated by admin before appearing on the public dashboard.
           </p>
         </div>
 
         {/* Action Buttons */}
-        <div className="mb-6 flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <div className="mb-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
           <Link
             to="/report-lost"
-            className="btn btn-warning gap-2 text-sm sm:text-base"
+            className="inline-flex items-center justify-center px-6 py-3 bg-accent text-primary rounded-lg font-semibold hover:bg-accent-dark transition-all duration-200 shadow-sm hover:shadow-md"
           >
-            <span>📦</span>{" "}
-            <span className="hidden sm:inline">Barang Saya Hilang</span>
-            <span className="sm:hidden">Hilang</span>
+            Report Lost Item
           </Link>
           <Link
             to="/report-found"
-            className="btn btn-success gap-2 text-sm sm:text-base"
+            className="inline-flex items-center justify-center px-6 py-3 bg-accent text-primary rounded-lg font-semibold hover:bg-accent-dark transition-all duration-200 shadow-sm hover:shadow-md"
           >
-            <span>✅</span>{" "}
-            <span className="hidden sm:inline">Saya Menemukan Barang</span>
-            <span className="sm:hidden">Ditemukan</span>
+            Report Found Item
           </Link>
         </div>
 
         {/* Lost Items Section */}
         <section className="mb-12">
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 flex flex-wrap items-center gap-2">
-            <span className="text-warning">🔍</span>{" "}
-            <span className="text-base sm:text-xl">Barang Pribadi yang Hilang</span>
-            <span className="text-sm font-normal text-gray-500">
-              ({lostItems.length} laporan)
-            </span>
-          </h2>
-          <p className="text-sm text-gray-600 mb-4">
-            Laporan barang pribadi Anda yang hilang. Status akan berubah menjadi
-            "Approved" setelah divalidasi admin.
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-1 h-10 bg-primary rounded-full"></div>
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-display font-bold text-primary mb-1">
+                Lost Items
+              </h2>
+              <p className="text-gray-600 text-sm">
+                {lostItems.length} report{lostItems.length !== 1 ? "s" : ""}
+              </p>
+            </div>
+          </div>
+          <p className="text-gray-600 mb-6 text-sm sm:text-base max-w-3xl">
+            Reports of your personal items that went missing. Status will change
+            to "Approved" after admin validation.
           </p>
           {loading ? (
-            <div className="flex justify-center py-12">
-              <span className="loading loading-spinner loading-lg"></span>
+            <div className="flex justify-center py-16">
+              <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
             </div>
           ) : lostItems.length === 0 ? (
-            <div className="card bg-base-100 shadow-xl">
-              <div className="card-body text-center py-12">
-                <p className="text-gray-500">
-                  Belum ada laporan barang pribadi yang hilang
-                </p>
-                <Link to="/report-lost" className="btn btn-warning btn-sm mt-4">
-                  Laporkan Barang Hilang
-                </Link>
-              </div>
+            <div className="bg-white rounded-xl p-12 text-center border-2 border-dashed border-gray-200">
+              <p className="text-gray-500 mb-4">No lost item reports yet</p>
+              <Link
+                to="/report-lost"
+                className="inline-flex items-center justify-center px-6 py-3 bg-accent text-primary rounded-lg font-semibold hover:bg-accent-dark transition-all duration-200"
+              >
+                Report Lost Item
+              </Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -123,37 +115,34 @@ export default function MyReports() {
 
         {/* Found Items Section */}
         <section>
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 flex flex-wrap items-center gap-2">
-            <span className="text-success">✅</span>{" "}
-            <span className="text-base sm:text-xl">
-              Penemuan Barang (Bukan Milik Anda)
-            </span>
-            <span className="text-sm font-normal text-gray-500">
-              ({foundItems.length} laporan)
-            </span>
-          </h2>
-          <p className="text-sm text-gray-600 mb-4">
-            Laporan barang yang Anda temukan di tempat random (bukan milik
-            Anda). Status akan berubah menjadi "Approved" setelah divalidasi
-            admin.
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-1 h-10 bg-accent rounded-full"></div>
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-display font-bold text-primary mb-1">
+                Found Items
+              </h2>
+              <p className="text-gray-600 text-sm">
+                {foundItems.length} report{foundItems.length !== 1 ? "s" : ""}
+              </p>
+            </div>
+          </div>
+          <p className="text-gray-600 mb-6 text-sm sm:text-base max-w-3xl">
+            Reports of items you found in random places (not yours). Status will
+            change to "Approved" after admin validation.
           </p>
           {loading ? (
-            <div className="flex justify-center py-12">
-              <span className="loading loading-spinner loading-lg"></span>
+            <div className="flex justify-center py-16">
+              <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
             </div>
           ) : foundItems.length === 0 ? (
-            <div className="card bg-base-100 shadow-xl">
-              <div className="card-body text-center py-12">
-                <p className="text-gray-500">
-                  Belum ada laporan penemuan barang
-                </p>
-                <Link
-                  to="/report-found"
-                  className="btn btn-success btn-sm mt-4"
-                >
-                  Laporkan Penemuan Barang
-                </Link>
-              </div>
+            <div className="bg-white rounded-xl p-12 text-center border-2 border-dashed border-gray-200">
+              <p className="text-gray-500 mb-4">No found item reports yet</p>
+              <Link
+                to="/report-found"
+                className="inline-flex items-center justify-center px-6 py-3 bg-accent text-primary rounded-lg font-semibold hover:bg-accent-dark transition-all duration-200"
+              >
+                Report Found Item
+              </Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
