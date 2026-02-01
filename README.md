@@ -1,6 +1,4 @@
-# 🎯 Lost & Found CMS
-
-<div align="center">
+# Lost & Found CMS
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)
@@ -9,98 +7,90 @@
 
 **A modern, full-stack web application for reporting and managing lost and found items**
 
-[Live Demo](https://cmsutssemester3.vercel.app) • [Documentation](#-documentation) • [Report Bug](https://github.com/Faiz-abdurrachman/CMS-UTS-SEMESTER-3/issues) • [Request Feature](https://github.com/Faiz-abdurrachman/CMS-UTS-SEMESTER-3/issues)
-
-</div>
+[Live Demo](https://cmsutssemester3.vercel.app) • [Documentation](#documentation) • [Report Bug](https://github.com/Faiz-abdurrachman/CMS-UTS-SEMESTER-3/issues) • [Request Feature](https://github.com/Faiz-abdurrachman/CMS-UTS-SEMESTER-3/issues)
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [Overview](#-overview)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Prerequisites](#-prerequisites)
-- [Installation](#-installation)
-- [Configuration](#-configuration)
-- [Usage](#-usage)
-- [API Documentation](#-api-documentation)
-- [Project Structure](#-project-structure)
-- [Admin Setup](#-admin-setup)
-- [Database Setup](#-database-setup)
-- [Deployment](#-deployment)
-- [Troubleshooting](#-troubleshooting)
-- [Contributing](#-contributing)
-- [License](#-license)
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [API Documentation](#api-documentation)
+- [Project Structure](#project-structure)
+- [Admin Setup](#admin-setup)
+- [Database Setup](#database-setup)
+- [Deployment](#deployment)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
-## 🎯 Overview
+## Overview
 
 **Lost & Found CMS** is a comprehensive web application designed to help users report and manage lost or found items. The system features a modern, responsive UI with role-based access control, allowing both regular users and administrators to efficiently manage lost and found items.
 
 ### Key Highlights
 
-- ✅ **Modern UI/UX** - Clean, professional design with smooth animations
-- ✅ **Role-Based Access** - Separate interfaces for users and administrators
-- ✅ **Real-time Validation** - Admin approval system for item reports
-- ✅ **Image Upload** - Support for item photos with automatic optimization
-- ✅ **Responsive Design** - Fully optimized for desktop and mobile devices
-- ✅ **Secure Authentication** - JWT-based authentication with password hashing
-- ✅ **Search & Filter** - Advanced filtering and search capabilities
+- **Modern UI/UX** - Clean, professional design with smooth animations
+- **Role-Based Access** - Separate interfaces for users and administrators
+- **Real-time Validation** - Admin approval system for item reports
+- **Image Upload** - Support for item photos with automatic optimization
+- **Responsive Design** - Fully optimized for desktop and mobile devices
+- **Secure Authentication** - JWT-based authentication with password hashing
+- **Search & Filter** - Advanced filtering and search capabilities
 
 ---
 
-## ✨ Features
+## Features
 
 ### User Features
 
-- 🔐 **User Authentication**
-
+- **User Authentication**
   - Secure registration and login
   - JWT token-based session management
   - Password encryption with bcrypt
 
-- 📝 **Item Reporting**
-
+- **Item Reporting**
   - Report lost items with detailed information
   - Report found items to help owners
   - Upload item photos (max 5MB)
   - Add location and date information
 
-- 📊 **Dashboard**
-
+- **Dashboard**
   - View all lost and found items
   - Search items by name, description, or location
   - Filter by status (Lost, Found, Resolved)
   - View personal reports
 
-- 👤 **Profile Management**
+- **Profile Management**
   - View personal information
   - Manage own reports
   - Track report status
 
 ### Admin Features
 
-- 🛡️ **Admin Dashboard**
-
+- **Admin Dashboard**
   - Comprehensive statistics overview
   - Manage all users and items
   - Real-time system monitoring
 
-- ✅ **Item Validation**
-
+- **Item Validation**
   - Approve or reject item reports
   - Review pending items
   - Mark items as resolved
 
-- 👥 **User Management**
-
+- **User Management**
   - View all registered users
   - Delete user accounts
   - Monitor user activity
 
-- 📦 **Item Management**
+- **Item Management**
   - Full CRUD operations on all items
   - Edit item details
   - Delete items
@@ -108,7 +98,7 @@
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### Frontend
 
@@ -144,7 +134,7 @@
 
 ---
 
-## 📦 Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following installed:
 
@@ -161,7 +151,7 @@ Before you begin, ensure you have the following installed:
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### Step 1: Clone the Repository
 
@@ -200,7 +190,7 @@ cd ..
 
 ### Step 3: Database Setup
 
-See [Database Setup](#-database-setup) section for detailed instructions.
+See [Database Setup](#database-setup) section for detailed instructions.
 
 ### Step 4: Environment Configuration
 
@@ -237,7 +227,6 @@ See [Database Setup](#-database-setup) section for detailed instructions.
    ```
 
    **Important Notes:**
-
    - `DB_PASSWORD` should be empty for default XAMPP/Laragon setup
    - Change `JWT_SECRET` to a strong random string in production
    - `FRONTEND_URL` should match your frontend development URL
@@ -272,7 +261,7 @@ Frontend will run on `http://localhost:3000`
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ### Environment Variables
 
@@ -299,23 +288,20 @@ Frontend API configuration is in `frontend/src/api.js`. The base URL is automati
 
 ---
 
-## 📖 Usage
+## Usage
 
 ### For Regular Users
 
 1. **Register an Account**
-
    - Navigate to the registration page
    - Fill in your name, email, and password
    - Click "Sign Up"
 
 2. **Login**
-
    - Use your credentials to log in
    - You'll be redirected to your dashboard
 
 3. **Report Lost Item**
-
    - Click "I just lost my stuff" button
    - Fill in item details (name, description, location, date)
    - Upload a photo (optional)
@@ -323,7 +309,6 @@ Frontend API configuration is in `frontend/src/api.js`. The base URL is automati
    - Wait for admin approval
 
 4. **Report Found Item**
-
    - Click "I found someone stuff" button
    - Fill in found item details
    - Upload a photo if available
@@ -337,20 +322,17 @@ Frontend API configuration is in `frontend/src/api.js`. The base URL is automati
 ### For Administrators
 
 1. **Admin Login**
-
    - Select "Login as Admin" mode
    - Use admin credentials
    - Access admin dashboard
 
 2. **Manage Reports**
-
    - View all pending, approved, and rejected reports
    - Approve or reject pending reports
    - Edit item details
    - Mark items as resolved
 
 3. **Manage Users**
-
    - View all registered users
    - Delete user accounts (if needed)
    - Monitor user activity
@@ -361,7 +343,7 @@ Frontend API configuration is in `frontend/src/api.js`. The base URL is automati
 
 ---
 
-## 📡 API Documentation
+## API Documentation
 
 ### Base URL
 
@@ -621,53 +603,53 @@ Authorization: Bearer <admin_token>
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 CMS-UTS-SEMESTER-3/
 │
-├── 📁 api/                          # Vercel serverless functions
-│   └── index.js                     # API entry point for Vercel
+├── api/                          # Vercel serverless functions
+│   └── index.js                  # API entry point for Vercel
 │
-├── 📁 backend/                      # Backend application
-│   ├── 📁 config/
-│   │   └── db.js                    # Database connection configuration
+├── backend/                      # Backend application
+│   ├── config/
+│   │   └── db.js                 # Database connection configuration
 │   │
-│   ├── 📁 controllers/
-│   │   ├── adminController.js       # Admin operations (CRUD, validation)
-│   │   ├── authController.js        # Authentication (register, login)
-│   │   └── itemController.js        # Item operations (CRUD)
+│   ├── controllers/
+│   │   ├── adminController.js    # Admin operations (CRUD, validation)
+│   │   ├── authController.js     # Authentication (register, login)
+│   │   └── itemController.js     # Item operations (CRUD)
 │   │
-│   ├── 📁 middleware/
-│   │   ├── adminMiddleware.js       # Admin role verification
-│   │   ├── authMiddleware.js        # JWT authentication
-│   │   └── upload.js                # File upload (Multer)
+│   ├── middleware/
+│   │   ├── adminMiddleware.js    # Admin role verification
+│   │   ├── authMiddleware.js     # JWT authentication
+│   │   └── upload.js             # File upload (Multer)
 │   │
-│   ├── 📁 models/
-│   │   ├── Item.js                  # Item model/schema
-│   │   └── User.js                  # User model/schema
+│   ├── models/
+│   │   ├── Item.js               # Item model/schema
+│   │   └── User.js               # User model/schema
 │   │
-│   ├── 📁 routes/
-│   │   ├── adminRoutes.js           # Admin API routes
-│   │   ├── authRoutes.js            # Authentication routes
-│   │   └── itemRoutes.js            # Item API routes
+│   ├── routes/
+│   │   ├── adminRoutes.js        # Admin API routes
+│   │   ├── authRoutes.js         # Authentication routes
+│   │   └── itemRoutes.js         # Item API routes
 │   │
-│   ├── 📁 scripts/
-│   │   └── createAdmin.js           # Script to create admin user
+│   ├── scripts/
+│   │   └── createAdmin.js        # Script to create admin user
 │   │
-│   ├── 📁 uploads/                  # Uploaded images (gitignored)
+│   ├── uploads/                  # Uploaded images (gitignored)
 │   │
-│   ├── .env.example                  # Environment variables template
-│   ├── package.json                 # Backend dependencies
-│   └── server.js                    # Express server entry point
+│   ├── .env.example              # Environment variables template
+│   ├── package.json              # Backend dependencies
+│   └── server.js                 # Express server entry point
 │
-├── 📁 database/                      # Database scripts
-│   ├── schema.sql                   # Main database schema
-│   ├── add-validation-status.sql    # Add validation_status column
-│   ├── add-resolved-fields.sql      # Add resolved_at and resolved_note
-│   └── create-admin.sql             # Admin user creation script
+├── database/                     # Database scripts
+│   ├── schema.sql                # Main database schema
+│   ├── add-validation-status.sql # Add validation_status column
+│   ├── add-resolved-fields.sql   # Add resolved_at and resolved_note
+│   └── create-admin.sql          # Admin user creation script
 │
-├── 📁 docs/                         # Documentation
+├── docs/                         # Documentation
 │   ├── 01-STRUKTUR-PROJECT.md
 │   ├── 02-BACKEND-DETAIL.md
 │   ├── 03-FRONTEND-DETAIL.md
@@ -681,44 +663,44 @@ CMS-UTS-SEMESTER-3/
 │   ├── 11-DEPLOY-VERCEL.md
 │   └── 12-SETUP-DATABASE-CLOUD.md
 │
-├── 📁 frontend/                     # Frontend React application
-│   ├── 📁 src/
-│   │   ├── 📁 components/
-│   │   │   ├── CardItem.jsx         # Item card component
-│   │   │   ├── Footer.jsx           # Footer component
-│   │   │   ├── Navbar.jsx           # Navigation bar
-│   │   │   └── SidebarAdmin.jsx     # Admin sidebar navigation
+├── frontend/                     # Frontend React application
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── CardItem.jsx      # Item card component
+│   │   │   ├── Footer.jsx        # Footer component
+│   │   │   ├── Navbar.jsx        # Navigation bar
+│   │   │   └── SidebarAdmin.jsx  # Admin sidebar navigation
 │   │   │
-│   │   ├── 📁 pages/
-│   │   │   ├── AdminDashboard.jsx   # Admin dashboard page
-│   │   │   ├── Dashboard.jsx        # User dashboard page
-│   │   │   ├── Home.jsx             # Landing page
-│   │   │   ├── Login.jsx            # Login page
-│   │   │   ├── MyReports.jsx        # User's reports page
-│   │   │   ├── Register.jsx         # Registration page
-│   │   │   ├── ReportFound.jsx      # Report found item page
-│   │   │   └── ReportLost.jsx       # Report lost item page
+│   │   ├── pages/
+│   │   │   ├── AdminDashboard.jsx # Admin dashboard page
+│   │   │   ├── Dashboard.jsx     # User dashboard page
+│   │   │   ├── Home.jsx          # Landing page
+│   │   │   ├── Login.jsx         # Login page
+│   │   │   ├── MyReports.jsx     # User's reports page
+│   │   │   ├── Register.jsx      # Registration page
+│   │   │   ├── ReportFound.jsx   # Report found item page
+│   │   │   └── ReportLost.jsx    # Report lost item page
 │   │   │
-│   │   ├── api.js                   # Axios configuration
-│   │   ├── App.jsx                  # Main app component with routing
-│   │   ├── index.css                # Global styles
-│   │   └── main.jsx                 # React entry point
+│   │   ├── api.js                # Axios configuration
+│   │   ├── App.jsx               # Main app component with routing
+│   │   ├── index.css             # Global styles
+│   │   └── main.jsx              # React entry point
 │   │
-│   ├── index.html                   # HTML template
-│   ├── package.json                 # Frontend dependencies
-│   ├── postcss.config.js            # PostCSS configuration
-│   ├── tailwind.config.js           # TailwindCSS configuration
-│   └── vite.config.js               # Vite configuration
+│   ├── index.html                # HTML template
+│   ├── package.json              # Frontend dependencies
+│   ├── postcss.config.js         # PostCSS configuration
+│   ├── tailwind.config.js        # TailwindCSS configuration
+│   └── vite.config.js            # Vite configuration
 │
-├── .gitignore                       # Git ignore rules
-├── package.json                     # Root package.json with scripts
-├── README.md                        # This file
-└── vercel.json                      # Vercel deployment configuration
+├── .gitignore                    # Git ignore rules
+├── package.json                  # Root package.json with scripts
+├── README.md                     # This file
+└── vercel.json                   # Vercel deployment configuration
 ```
 
 ---
 
-## 👨‍💼 Admin Setup
+## Admin Setup
 
 ### Creating an Admin User
 
@@ -773,18 +755,16 @@ mysql -u root -p lostfound_db < create-admin.sql
 
 ---
 
-## 🗄️ Database Setup
+## Database Setup
 
 ### Option 1: Using XAMPP
 
 1. **Start XAMPP**
-
    - Open XAMPP Control Panel
    - Start Apache and MySQL services
    - Ensure both show green status
 
 2. **Create Database**
-
    - Open `http://localhost/phpmyadmin`
    - Click "SQL" tab
    - Copy and paste contents of `database/schema.sql`
@@ -797,325 +777,100 @@ mysql -u root -p lostfound_db < create-admin.sql
 ### Option 2: Using Laragon
 
 1. **Start Laragon**
-
-   - Open Laragon application
-   - Start Apache and MySQL services
+   - Click "Start All"
 
 2. **Create Database**
+   - Open HeidiSQL (included with Laragon)
+   - Create new database `lostfound_db`
+   - Execute `database/schema.sql`
 
-   - Open `http://localhost/phpmyadmin` or use Laragon's database manager
-   - Import `database/schema.sql` file
-   - Or execute SQL manually
+3. **Verify**
+   - Tables should appear in the database
 
-3. **Configure .env**
-   ```env
-   DB_HOST=localhost
-   DB_USER=root
-   DB_PASSWORD=
-   DB_NAME=lostfound_db
-   ```
+### Option 3: Cloud Database (Aiven)
 
-### Option 3: Using Cloud Database
-
-For production or cloud deployment:
-
-1. **Create Database**
-
-   - Use services like PlanetScale, AWS RDS, or Google Cloud SQL
-   - Note the connection details
-
-2. **Configure .env**
-
-   ```env
-   DB_HOST=your-cloud-host.com
-   DB_USER=your-username
-   DB_PASSWORD=your-password
-   DB_NAME=lostfound_db
-   DB_SSL=true  # If required
-   ```
-
-3. **Import Schema**
-   - Use MySQL client or phpMyAdmin
-   - Import `database/schema.sql`
-
-### Database Schema
-
-The database consists of two main tables:
-
-#### Users Table
-
-| Column       | Type         | Description                  |
-| ------------ | ------------ | ---------------------------- |
-| `id`         | INT          | Primary key, auto increment  |
-| `name`       | VARCHAR(100) | User's full name             |
-| `email`      | VARCHAR(100) | Unique email address         |
-| `password`   | VARCHAR(255) | Bcrypt hashed password       |
-| `role`       | VARCHAR(20)  | User role: 'user' or 'admin' |
-| `created_at` | TIMESTAMP    | Account creation timestamp   |
-| `updated_at` | TIMESTAMP    | Last update timestamp        |
-
-#### Items Table
-
-| Column              | Type         | Description                       |
-| ------------------- | ------------ | --------------------------------- |
-| `id`                | INT          | Primary key, auto increment       |
-| `user_id`           | INT          | Foreign key to users table        |
-| `name`              | VARCHAR(200) | Item name                         |
-| `description`       | TEXT         | Item description                  |
-| `location`          | VARCHAR(200) | Location where lost/found         |
-| `date_occured`      | DATE         | Date when item was lost/found     |
-| `image`             | VARCHAR(255) | Image filename                    |
-| `status`            | VARCHAR(20)  | 'lost' or 'found'                 |
-| `validation_status` | VARCHAR(20)  | 'pending', 'approved', 'rejected' |
-| `resolved_at`       | TIMESTAMP    | When item was marked as resolved  |
-| `resolved_note`     | TEXT         | Admin note when resolving         |
-| `created_at`        | TIMESTAMP    | Report creation timestamp         |
-| `updated_at`        | TIMESTAMP    | Last update timestamp             |
+1. Create account on Aiven.io
+2. Create MySQL service
+3. Get connection credentials
+4. Update `.env` with cloud credentials
+5. Use `mysql` command line or workbench to import schema
 
 ---
 
-## 🚀 Deployment
+## Deployment
 
-### Deploying to Vercel
+### Vercel Deployment (Full Stack)
 
-This project is configured for Vercel deployment with serverless functions.
-
-#### Prerequisites
-
-- Vercel account
-- GitHub repository connected to Vercel
-
-#### Steps
+This project is configured for deployment on Vercel as a full-stack application (React frontend + Express backend as Serverless Functions).
 
 1. **Push to GitHub**
 
    ```bash
+   git add .
+   git commit -m "Ready for deployment"
    git push origin main
    ```
 
-2. **Import to Vercel**
-
-   - Go to [Vercel Dashboard](https://vercel.com/dashboard)
-   - Click "Add New Project"
-   - Import your GitHub repository
+2. **Connect to Vercel**
+   - Go to Vercel Dashboard
+   - "Add New" -> "Project"
+   - Import repository
 
 3. **Configure Environment Variables**
-
-   - In Vercel project settings, add all variables from `backend/.env.example`
-   - Set production values for:
-     - `DB_HOST` (cloud database)
-     - `DB_USER`
-     - `DB_PASSWORD`
-     - `JWT_SECRET` (strong random string)
-     - `FRONTEND_URL` (your Vercel domain)
+   - Add all variables from `.env`
+   - Update `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` to your cloud database credentials
 
 4. **Deploy**
-   - Vercel will automatically deploy on push to main branch
-   - Or click "Deploy" manually
+   - Click Deploy
+   - Vercel will build frontend and set up serverless functions
 
-#### Database for Production
+### Alternative Deployment
 
-Use a cloud database service:
-
-- **PlanetScale** - Serverless MySQL
-- **AWS RDS** - Managed MySQL
-- **Google Cloud SQL** - Managed MySQL
-- **Railway** - Database hosting
-
-### Manual Deployment
-
-#### Backend Deployment
-
-1. **Build**
-
-   ```bash
-   cd backend
-   npm install --production
-   ```
-
-2. **Set Environment Variables**
-
-   - Configure production `.env` file
-
-3. **Start Server**
-   ```bash
-   npm start
-   ```
-
-#### Frontend Deployment
-
-1. **Build**
-
-   ```bash
-   cd frontend
-   npm run build
-   ```
-
-2. **Deploy**
-   - Upload `dist/` folder to your hosting service
-   - Configure server to serve `index.html` for all routes
+- **Frontend**: Netlify, Vercel, Firebase Hosting
+- **Backend**: Heroku, Railway, Render, DigitalOcean
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
-### Common Issues and Solutions
+### Common Issues
 
-#### Database Connection Errors
+#### 1. Database Connection Failed
 
-**Error:** `Cannot connect to database`
+- Check if MySQL service is running
+- Verify credentials in `.env`
+- Ensure database `lostfound_db` exists
+- Check if port 3306 is available
 
-**Solutions:**
+#### 2. Images Not Loading
 
-1. Verify MySQL service is running (XAMPP/Laragon)
-2. Check `.env` file credentials
-3. Ensure database `lostfound_db` exists
-4. Test connection with MySQL client
+- Check `uploads` folder exists in backend
+- Verify `FRONTEND_URL` in backend `.env` matches your frontend URL
+- Check permissions on `uploads` folder
 
-#### Port Already in Use
+#### 3. CORS Errors
 
-**Error:** `Port 5000 already in use` or `Port 3000 already in use`
+- Ensure `FRONTEND_URL` in backend `.env` is correct
+- Check if you're calling the correct API URL
 
-**Solutions:**
+#### 4. Login Fails
 
-- **Backend**: Change `PORT` in `.env` file
-- **Frontend**: Change port in `vite.config.js`
-- Or kill the process using the port:
-
-  ```bash
-  # Windows
-  netstat -ano | findstr :5000
-  taskkill /PID <PID> /F
-
-  # Mac/Linux
-  lsof -ti:5000 | xargs kill
-  ```
-
-#### CORS Errors
-
-**Error:** `CORS policy: No 'Access-Control-Allow-Origin' header`
-
-**Solutions:**
-
-1. Check `FRONTEND_URL` in backend `.env`
-2. Verify backend CORS configuration in `server.js`
-3. Ensure backend server is running
-
-#### File Upload Errors
-
-**Error:** `Multer file upload ENOENT` or `Cannot find module 'multer'`
-
-**Solutions:**
-
-1. Ensure `uploads/` directory exists in backend folder
-2. Check file permissions (write access)
-3. Verify Multer is installed: `npm install multer`
-
-#### JWT Token Errors
-
-**Error:** `Invalid token` or `Token expired`
-
-**Solutions:**
-
-1. Clear browser localStorage
-2. Log out and log in again
-3. Check `JWT_SECRET` in `.env` matches between restarts
-
-#### Build Errors
-
-**Error:** `TailwindCSS not recognized` or build fails
-
-**Solutions:**
-
-```bash
-cd frontend
-npm install
-npx tailwindcss init -p
-npm run build
-```
-
-#### Module Not Found
-
-**Error:** `Cannot find module` or `Module not found`
-
-**Solutions:**
-
-1. Delete `node_modules` and `package-lock.json`
-2. Run `npm install` again
-3. Verify all dependencies in `package.json`
+- Verify table structure matches `models/User.js`
+- Check if password hashing is working correctly
+- Clear browser local storage
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are welcome! Please follow these steps:
-
-1. **Fork the repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. **Make your changes**
-4. **Commit your changes**
-   ```bash
-   git commit -m "Add some amazing feature"
-   ```
-5. **Push to the branch**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-6. **Open a Pull Request**
-
-### Code Style
-
-- Follow existing code style
-- Use meaningful variable and function names
-- Add comments for complex logic
-- Keep functions small and focused
-- Test your changes before submitting
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ---
 
-## 📄 License
+## License
 
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
-
-**Note:** This project was created for educational purposes.
-
----
-
-## 👤 Author
-
-**Faiz Abdurrachman**
-
-- GitHub: [@Faiz-abdurrachman](https://github.com/Faiz-abdurrachman)
-- Project: [Lost & Found CMS](https://github.com/Faiz-abdurrachman/CMS-UTS-SEMESTER-3)
-
----
-
-## 🙏 Acknowledgments
-
-- React.js community for excellent documentation
-- TailwindCSS team for the amazing utility framework
-- Express.js for the robust backend framework
-- All contributors and users of this project
-
----
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [Troubleshooting](#-troubleshooting) section
-2. Review existing [Issues](https://github.com/Faiz-abdurrachman/CMS-UTS-SEMESTER-3/issues)
-3. Create a new issue with detailed information
-
----
-
-<div align="center">
-
-**Made with ❤️ for helping people find their lost items**
-
-⭐ Star this repo if you find it helpful!
-
-</div>
+Distributed under the ISC License. See `LICENSE` for more information.
