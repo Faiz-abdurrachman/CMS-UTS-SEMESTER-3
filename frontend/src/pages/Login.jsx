@@ -5,28 +5,26 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import api from "../api";
+import { useAuth } from "../hooks/useAuth";
 import toast from "react-hot-toast";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login, user } = useAuth();
 
   // ============================================
   // CEK JIKA SUDAH LOGIN
   // ============================================
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user") || "null");
-
-    if (token && user) {
+    if (user) {
       if (user.role === "admin") {
         navigate("/admin", { replace: true });
       } else {
         navigate("/dashboard", { replace: true });
       }
     }
-  }, [navigate]);
+  }, [user, navigate]);
 
   // State untuk form data
   const [form, setForm] = useState({
@@ -57,43 +55,27 @@ export default function Login() {
     setError("");
 
     try {
-      const response = await api.post("/auth/login", form);
+      // Panggil fungsi login dari AuthContext
+      const result = await login(form.email, form.password);
 
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-
-        const userRole = response.data.user.role;
-
-        if (loginMode === "admin" && userRole !== "admin") {
-          setError("This email is not an admin account! Please login as User.");
-          toast.error("This email is not an admin account!");
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          return;
-        }
-
-        if (loginMode === "user" && userRole === "admin") {
-          setError("This is an admin account! Please select 'Login as Admin'.");
-          toast.error("This is an admin account! Select Admin mode.");
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          return;
-        }
-
-        if (userRole === "admin") {
-          toast.success("Login successful! Welcome Admin");
-          navigate("/admin", { replace: true });
-        } else {
-          toast.success("Login successful! Welcome");
-          navigate("/dashboard", { replace: true });
-        }
+      if (result.success) {
+        // Cek role manual karena state user mungkin belum update seketika di sini
+        // Kita bisa ambil payload dari token jika perlu, tapi untuk simpelnya
+        // kita percaya redirect di useEffect atau kita cek response jika login mengembalikan data user (updated AuthContext to return user)
+        
+        // Note: AuthContext.login mengembalikan { success: true } 
+        // Logic redirect sebenarnya sudah dihandle useEffect([user]), 
+        // tapi untuk UX lebih cepat bisa kita handle disini juga atau biarkan useEffect bekerja.
+        
+        // Agar aman, kita biarkan useEffect yang handle redirect setelah user state terupdate.
+        toast.success("Login successful!");
+      } else {
+        setError(result.message);
+        toast.error(result.message);
       }
     } catch (err) {
-      const errorMessage =
-        err.response?.data?.message || "Email or password is incorrect!";
-      setError(errorMessage);
-      toast.error(errorMessage);
+      setError("An unexpected error occurred");
+      toast.error("An unexpected error occurred");
     } finally {
       setLoading(false);
     }

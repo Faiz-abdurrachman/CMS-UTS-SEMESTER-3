@@ -5,11 +5,12 @@
 
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import api from "../api";
+import { useAuth } from "../hooks/useAuth";
 import toast from "react-hot-toast";
 
 export default function Register() {
   const navigate = useNavigate();
+  const { register } = useAuth();
 
   // State untuk form data
   const [form, setForm] = useState({
@@ -38,14 +39,21 @@ export default function Register() {
     setError("");
 
     try {
-      await api.post("/auth/register", form);
-      toast.success("Registration successful! Please login.");
-      navigate("/login");
+      const result = await register(form.name, form.email, form.password);
+      
+      if (result.success) {
+        toast.success(result.message || "Registration successful!");
+        // Jika auto login di context sukses, arahkan ke dashboard/home
+        // Jika context hanya register, arahkan ke login
+        // Di AuthContext kita implementasikan auto login jika register sukses
+         navigate("/dashboard");
+      } else {
+        setError(result.message);
+        toast.error(result.message);
+      }
     } catch (err) {
-      const errorMessage =
-        err.response?.data?.message || "An error occurred. Please try again!";
-      setError(errorMessage);
-      toast.error(errorMessage);
+      setError("An unexpected error occurred");
+      toast.error("An unexpected error occurred");
     } finally {
       setLoading(false);
     }

@@ -7,6 +7,8 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 require("dotenv").config();
 
 // Import routes
@@ -21,6 +23,17 @@ const app = express();
 // ============================================
 // MIDDLEWARE
 // ============================================
+
+// Security Middleware
+app.use(helmet()); // Protects various HTTP headers
+
+// Rate Limiting (Prevent Brute Force/Spam)
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: "Too many requests from this IP, please try again later",
+});
+app.use(limiter);
 
 // CORS (Cross-Origin Resource Sharing)
 // Memungkinkan frontend (port 3000) mengakses backend (port 5000)
@@ -91,9 +104,13 @@ app.use((err, req, res, next) => {
 // Ambil port dari environment variable atau gunakan default 5000
 const PORT = process.env.PORT || 5000;
 
-// Start server dan listen di port tertentu
-// Callback function akan dipanggil ketika server berhasil start
-app.listen(PORT, () => {
-  console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
-  console.log(`📡 Siap menerima request dari frontend`);
-});
+// Start server dan listen di port tertentu hanya jika dijalankan langsung
+// Jika di-import (oleh Vercel api/index.js), jangan listen, tapi export app
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
+    console.log(`📡 Siap menerima request dari frontend`);
+  });
+}
+
+module.exports = app;

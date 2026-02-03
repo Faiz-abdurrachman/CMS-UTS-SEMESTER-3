@@ -9,35 +9,36 @@
 
 ### 🚨 Masalah yang Ditemukan
 
-| No  | Masalah                       | Prioritas | Status           |
-| --- | ----------------------------- | --------- | ---------------- |
-| 1   | Folder `backend/` duplikat    | 🔴 KRITIS | Belum diperbaiki |
-| 2   | Path salah di `api/index.js`  | 🔴 KRITIS | Belum diperbaiki |
-| 3   | Database schema tidak lengkap | 🟡 SEDANG | Belum diperbaiki |
-| 4   | Vercel config tidak tepat     | 🟡 SEDANG | Belum diperbaiki |
-| 5   | JWT Secret lemah di .env      | 🟢 RENDAH | Belum diperbaiki |
+| No  | Masalah                       | Prioritas | Status               |
+| --- | ----------------------------- | --------- | -------------------- |
+| 1   | Folder `backend/` duplikat    | 🔴 KRITIS | ✅ SELESEAI (Merged) |
+| 2   | Path salah di `api/index.js`  | 🔴 KRITIS | ✅ SELESAI (Fixed)   |
+| 3   | Database schema tidak lengkap | 🟡 SEDANG | Belum diperbaiki     |
+| 4   | Vercel config tidak tepat     | 🟡 SEDANG | Belum diperbaiki     |
+| 5   | JWT Secret lemah di .env      | 🟢 RENDAH | Belum diperbaiki     |
 
 ---
 
 ## 🏗️ STRUKTUR SAAT INI (BERMASALAH)
 
-```
 CMS-UTS-SEMESTER-3/
-├── server.js              ← ✅ File asli
-├── controllers/           ← ✅ Folder asli
-├── models/                ← ✅ Folder asli
-├── routes/                ← ✅ Folder asli
-├── config/                ← ✅ Folder asli
-├── middleware/            ← ✅ Folder asli
-├── database/              ← ✅ Folder asli
-├── scripts/               ← ✅ Folder asli
-├── api/                   ← ✅ Untuk Vercel
-├── frontend/              ← ✅ React app
-│
-├── backend/               ← ❌ DUPLIKAT - HAPUS INI!
-│   ├── backend/           ← ❌ DUPLIKAT LAGI
-│   ├── server.js          ← ❌ Salinan
-│   └── ...
+├── .env.example ← ✅ Config template
+├── package.json ← ✅ Root orchestrator
+├── vercel.json ← ✅ Deployment config
+├── backend/ ← ✅ Backend Source (Moved from root)
+│ ├── server.js
+│ ├── controllers/
+│ ├── models/
+│ ├── routes/
+│ ├── config/
+│ ├── middleware/
+│ ├── database/
+│ ├── scripts/
+│ └── package.json
+├── frontend/ ← ✅ React app
+└── api/ ← ✅ Vercel serverless
+└── index.js
+
 ```
 
 ---
@@ -45,71 +46,74 @@ CMS-UTS-SEMESTER-3/
 ## 🎯 STRUKTUR YANG DIINGINKAN (PROFESIONAL)
 
 ```
+
 CMS-UTS-SEMESTER-3/
-├── .env.example           ✓ Config template
-├── package.json           ✓ Root dependencies
-├── server.js              ✓ Entry point
-├── vercel.json            ✓ Deployment config
+├── .env.example ✓ Config template
+├── package.json ✓ Root dependencies
+├── server.js ✓ Entry point
+├── vercel.json ✓ Deployment config
 │
-├── api/                   ✓ Vercel serverless
-│   └── index.js
+├── api/ ✓ Vercel serverless
+│ └── index.js
 │
-├── config/                ✓ DB & app config
-│   └── db.js
+├── config/ ✓ DB & app config
+│ └── db.js
 │
-├── controllers/           ✓ Business logic
-│   ├── adminController.js
-│   ├── authController.js
-│   └── itemController.js
+├── controllers/ ✓ Business logic
+│ ├── adminController.js
+│ ├── authController.js
+│ └── itemController.js
 │
-├── database/              ✓ SQL schemas
-│   └── schema.sql
+├── database/ ✓ SQL schemas
+│ └── schema.sql
 │
-├── middleware/            ✓ Express middleware
-│   ├── adminMiddleware.js
-│   ├── authMiddleware.js
-│   └── upload.js
+├── middleware/ ✓ Express middleware
+│ ├── adminMiddleware.js
+│ ├── authMiddleware.js
+│ └── upload.js
 │
-├── models/                ✓ Data models
-│   ├── Item.js
-│   └── User.js
+├── models/ ✓ Data models
+│ ├── Item.js
+│ └── User.js
 │
-├── routes/                ✓ API routes
-│   ├── adminRoutes.js
-│   ├── authRoutes.js
-│   └── itemRoutes.js
+├── routes/ ✓ API routes
+│ ├── adminRoutes.js
+│ ├── authRoutes.js
+│ └── itemRoutes.js
 │
-├── scripts/               ✓ Utility scripts
-│   └── createAdmin.js
+├── scripts/ ✓ Utility scripts
+│ └── createAdmin.js
 │
-└── frontend/              ✓ React application
-    ├── src/
-    │   ├── components/
-    │   ├── contexts/      ← BARU (AuthContext)
-    │   ├── hooks/         ← BARU (useAuth)
-    │   ├── pages/
-    │   ├── api.js
-    │   └── App.jsx
-    ├── package.json
-    └── vite.config.js
-```
+└── frontend/ ✓ React application
+├── src/
+│ ├── components/
+│ ├── contexts/ ← BARU (AuthContext)
+│ ├── hooks/ ← BARU (useAuth)
+│ ├── pages/
+│ ├── api.js
+│ └── App.jsx
+├── package.json
+└── vite.config.js
+
+````
 
 ---
 
 ## 🛠️ RENCANA ROMBAK (4 FASE)
 
-### FASE 1: Cleanup Struktur (5 menit)
+### FASE 1: Cleanup Struktur (✅ SELESAI)
 
 ```bash
 # Hapus folder duplikat
 rm -rf backend/
-```
+# Backend source sudah dipindahkan ke backend/
+````
 
 ### FASE 2: Standardisasi Backend (30-45 menit)
 
 - [ ] Update `package.json` scripts
 - [ ] Tambah security middleware (helmet, rate-limit)
-- [ ] Fix path di `api/index.js`
+- [x] Fix path di `api/index.js`
 - [ ] Update database schema
 
 ### FASE 3: Refactor Frontend (30-45 menit)

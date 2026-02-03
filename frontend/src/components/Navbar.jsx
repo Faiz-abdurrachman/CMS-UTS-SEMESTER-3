@@ -4,22 +4,16 @@
 // ============================================
 
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Navbar() {
   const navigate = useNavigate();
-
-  // Cek apakah user sudah login
-  const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user") || "null");
-
-  // ============================================
-  // HANDLE LOGOUT
-  // ============================================
-
+  const { user, logout } = useAuth();
+  
+  // Logic user/logout sudah dihandle oleh AuthContext
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/");
+    logout();
+    navigate("/login"); // Optional: jika logout tidak redirect di context
   };
 
   return (
@@ -43,7 +37,7 @@ export default function Navbar() {
               Home
             </Link>
 
-            {token ? (
+            {user ? (
               <>
                 {user?.role === "admin" ? (
                   <>
@@ -144,7 +138,7 @@ export default function Navbar() {
                     Home
                   </Link>
                 </li>
-                {token ? (
+                {user ? (
                   <>
                     {user?.role === "admin" ? (
                       <>

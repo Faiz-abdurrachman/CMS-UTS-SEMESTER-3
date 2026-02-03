@@ -20,18 +20,24 @@ import ReportLost from "./pages/ReportLost";
 import ReportFound from "./pages/ReportFound";
 import MyReports from "./pages/MyReports";
 import AdminDashboard from "./pages/AdminDashboard";
+import { AuthProvider } from "./contexts/AuthContext";
+import { useAuth } from "./hooks/useAuth";
 
 // ============================================
 // PROTECTED ROUTE COMPONENT
 // ============================================
 
 // Komponen untuk melindungi route yang memerlukan login
+// Komponen untuk melindungi route yang memerlukan login
 const ProtectedRoute = ({ children, requireAdmin = false }) => {
-  const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user") || "null");
+  const { user, loading } = useAuth();
 
-  // Jika tidak ada token, redirect ke login
-  if (!token || !user) {
+  if (loading) {
+    return <div>Loading...</div>; // Or a nice spinner
+  }
+
+  // Jika tidak ada user (belum login), redirect ke login
+  if (!user) {
     return <Navigate to="/login" replace />;
   }
 
@@ -109,9 +115,11 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
   );
 }
 
