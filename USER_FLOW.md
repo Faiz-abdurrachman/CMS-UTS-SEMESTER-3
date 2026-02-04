@@ -4,6 +4,40 @@ Dokumen ini menjelaskan **alur user** di aplikasi Lost & Found berdasarkan **pen
 
 ---
 
+## Glosarium — Istilah yang Dipakai di Dokumen Ini
+
+Supaya tidak asing, ini arti istilah-istilah yang dipakai (dijelaskan sesederhana mungkin).
+
+| Istilah | Arti singkat |
+|--------|----------------|
+| **AuthContext** | Tempat menyimpan "siapa yang lagi login" dan fungsi login/register/logout di satu tempat. Komponen mana pun (Navbar, Login, ProtectedRoute) bisa baca atau panggil itu tanpa harus oper data dari atas ke bawah. Di kode: `frontend/src/contexts/AuthContext.jsx`. |
+| **AuthProvider** | "Penyedia" AuthContext. Komponen yang membungkus sebagian besar aplikasi supaya semua anak di dalamnya bisa pakai data auth (user, token, login, logout). Tanpa Provider, Context tidak bisa dipakai. |
+| **Context (React)** | Mekanisme React untuk berbagi data ke banyak komponen tanpa harus oper props dari parent ke child terus-terusan. AuthContext = context khusus untuk data login. |
+| **useAuth()** | Hook untuk mengambil isi AuthContext. Dipanggil di komponen yang butuh info login, misalnya: `const { user, login, logout } = useAuth();`. Harus dipakai di dalam komponen yang masih keturunan AuthProvider. |
+| **Token (JWT)** | String panjang yang dikasih backend setelah login berhasil. Isinya (setelah di-decode) antara lain id dan role user. Frontend simpan token; setiap request ke API mengirim token di header supaya backend tahu "yang request ini user siapa". |
+| **Bearer** | Kata di header HTTP: `Authorization: Bearer <token>`. Artinya "token untuk otorisasi adalah …". Backend baca header ini untuk ambil token. |
+| **localStorage** | Penyimpanan di browser yang tetap ada meski halaman di-refresh. Dipakai untuk simpan token dan data user supaya setelah refresh user tetap dianggap sudah login. |
+| **ProtectedRoute** | Komponen yang mengecek apakah user sudah login (dan kalau perlu sudah admin). Kalau belum login → redirect ke `/login`. Kalau lolos → tampilkan halaman yang diminta (children). |
+| **Middleware** | Kode di backend yang dijalankan sebelum request sampai ke controller. Contoh: authenticate cek token, isi req.user; isAdmin cek role admin. |
+| **Interceptor** | Kode di frontend (axios) yang dijalankan otomatis setiap request/response. Request interceptor: tambah header Authorization. Response interceptor: kalau 401, hapus token dan redirect ke login. |
+| **Route** | Pemetaan: "kalau URL ini, tampilkan komponen ini" (frontend) atau "jalankan controller ini" (backend). |
+| **Redirect / Navigate** | Mengalihkan user ke URL lain (misalnya belum login buka /dashboard → ke /login). |
+| **Component** | Potongan UI dan logika di React (contoh: Home, Login, Navbar, CardItem). |
+| **API / endpoint** | Alamat yang dipanggil frontend untuk minta atau kirim data (contoh: POST /api/auth/login, GET /api/items). |
+| **Frontend** | Bagian yang jalan di browser (React): tampilan, form, navigasi. |
+| **Backend** | Bagian yang jalan di server (Node/Express): terima request, baca/tulis database, kirim response. |
+| **Hash (password)** | Password diubah jadi string acak yang disimpan di database; saat login dibandingkan dengan bcrypt. Password asli tidak disimpan. |
+| **FormData** | Format kirim data yang bisa berisi teks dan file (foto). Dipakai di Report Lost/Found. |
+| **401** | Kode HTTP "Unauthorized": token tidak ada/salah/expired. Frontend pakai ini untuk logout dan redirect ke login. |
+| **req.user** | Setelah middleware authenticate, backend mengisi req.user dengan data user (id, name, email, role). Controller pakai req.user.id dll. |
+| **Payload** | Isi token JWT setelah di-decode (biasanya id dan role). Backend pakai untuk cari user di database. |
+| **Di-mount** | Saat komponen React pertama kali ditampilkan. "AuthContext di-mount" = saat aplikasi jalan, useEffect di AuthContext baca localStorage. |
+| **useEffect** | Hook React yang menjalankan kode pada waktu tertentu (misalnya sekali saat komponen muncul). |
+| **Toast** | Pesan singkat di layar yang lalu hilang (contoh: "Login successful!"). |
+| **children** | Di React, konten yang dibungkus di dalam komponen. Di ProtectedRoute, children = halaman yang dilindungi (misalnya Dashboard). |
+
+---
+
 ## 1. Tiga “Peran” di Aplikasi
 
 | Peran | Siapa | Bisa akses apa |
