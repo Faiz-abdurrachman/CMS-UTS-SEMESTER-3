@@ -208,11 +208,7 @@ export default function AdminDashboard() {
         formData.append("image", editImageFile);
       }
 
-      await api.put(`/admin/items/${editingItem.id}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await api.put(`/admin/items/${editingItem.id}`, formData);
 
       toast.success("Item updated successfully");
       handleCloseEditModal();
