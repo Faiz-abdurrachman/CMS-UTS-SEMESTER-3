@@ -38,7 +38,7 @@ Jadi **integrasinya beda**: dengan Docker kamu tidak "pasang MySQL ke Arch" sepe
    - `docker-compose.yml` — mendefinisikan MySQL + backend + frontend.
    - `backend/Dockerfile` — cara "bangun" image backend.
    - `frontend/Dockerfile` — cara "bangun" image frontend.
-   - Env pakai **satu template** yang sama dengan jalan lokal: `backend/.env.example` (lihat di bawah).
+   - **Env Docker terpisah:** `backend/.env.docker.example` → copy jadi `backend/.env.docker` (isi sudah DB_HOST=mysql, tidak bergantung asumsi override).
 
 ---
 
@@ -46,11 +46,11 @@ Jadi **integrasinya beda**: dengan Docker kamu tidak "pasang MySQL ke Arch" sepe
 
 ### Pertama kali (setup)
 
-1. **Copy template env (satu untuk lokal & Docker):**
+1. **Copy env khusus Docker** (supaya eksplisit: backend di container pakai DB_HOST=mysql):
    ```bash
-   cp backend/.env.example backend/.env
+   cp backend/.env.docker.example backend/.env.docker
    ```
-   Isi yang sama dipakai untuk jalan lokal (XAMPP) dan untuk Docker. Saat pakai `docker compose up`, nilai DB_HOST & password database akan **di-override otomatis** oleh docker-compose, jadi tidak perlu ubah manual.
+   File `.env.docker` dipakai **hanya** saat `docker compose up`; isinya sudah benar untuk konek ke MySQL di container. Jalan lokal (tanpa Docker) pakai `backend/.env` dari `backend/.env.example`.
 
 2. Jalankan semua service (MySQL + backend + frontend):
    ```bash
