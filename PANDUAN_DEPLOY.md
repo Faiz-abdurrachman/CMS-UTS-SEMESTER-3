@@ -4,6 +4,21 @@ Agar aplikasi jalan **tanpa harus nyalain laptop** (bisa diakses dari mana aja),
 
 ---
 
+## ✅ Status konfigurasi (siap deploy gratis)
+
+| Yang dibutuhkan | Status |
+|-----------------|--------|
+| `vercel.json` (builds + routes + installCommand) | ✅ Sudah ada |
+| `api/index.js` (serverless backend) | ✅ Sudah ada |
+| Frontend build (Vite) | ✅ `npm run build` di frontend |
+| Install semua dependency | ✅ `npm run install:all` di root |
+| Database | ⚠️ Harus bikin sendiri di PlanetScale/Railway (gratis) |
+| Env production | ⚠️ Di-set di dashboard Vercel (DB_*, JWT_SECRET, FRONTEND_URL) |
+
+**Kesimpulan:** Konfigurasi repo **sudah siap** untuk deploy. Yang perlu kamu lakukan: (1) bikin database MySQL gratis di cloud, (2) import project ke Vercel, (3) isi env variables, (4) deploy. Semua itu bisa **gratis** (Vercel free tier + PlanetScale/Railway free tier).
+
+---
+
 ## Yang perlu disiapkan
 
 1. **Akun Vercel** – [vercel.com](https://vercel.com) → Sign up (bisa pakai GitHub).
