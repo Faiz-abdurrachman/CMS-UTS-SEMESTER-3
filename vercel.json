@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "installCommand": "npm run install:all",
   "builds": [
     {
       "src": "frontend/package.json",
@@ -12,21 +13,9 @@
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/frontend/dist/$1",
-      "headers": { "cache-control": "s-maxage=0" }
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-        "src": "/(.*)",
-        "dest": "/frontend/dist/index.html"
-    }
+    { "src": "/api/(.*)", "dest": "/api/index.js" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/frontend/dist/$1" },
+    { "src": "/(.*)", "dest": "/frontend/dist/index.html" }
   ]
 }
