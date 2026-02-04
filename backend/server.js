@@ -56,10 +56,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Static folder untuk uploads
-// Memungkinkan akses file upload via URL: http://localhost:5000/uploads/filename.jpg
-// path.join(__dirname, ...) membuat path absolut ke folder uploads
+// Cross-Origin-Resource-Policy: cross-origin agar gambar bisa ditampilkan di frontend (port 3000)
+// tanpa ini, Helmet set CORP same-origin dan browser blokir gambar dari port 5000
 app.use(
   "/uploads",
+  (req, res, next) => {
+    res.set("Cross-Origin-Resource-Policy", "cross-origin");
+    next();
+  },
   express.static(path.join(__dirname, process.env.UPLOAD_DIR || "uploads"))
 );
 

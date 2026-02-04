@@ -79,11 +79,7 @@ export default function ReportFound() {
         data.append("image", file);
       }
 
-      await api.post("/items/found", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await api.post("/items/found", data);
 
       toast.success("Report submitted successfully!");
       navigate("/dashboard");

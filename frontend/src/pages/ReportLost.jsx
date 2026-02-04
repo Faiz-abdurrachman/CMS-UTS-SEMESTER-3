@@ -79,11 +79,7 @@ export default function ReportLost() {
         data.append("image", file);
       }
 
-      await api.post("/items/lost", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await api.post("/items/lost", data);
 
       toast.success("Report submitted successfully!");
       navigate("/dashboard");

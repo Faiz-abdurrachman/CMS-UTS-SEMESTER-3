@@ -42,6 +42,23 @@ Jadi **integrasinya beda**: dengan Docker kamu tidak "pasang MySQL ke Arch" sepe
 
 ---
 
+## Cara masuk aplikasi (setelah Docker jalan)
+
+Ikuti urutan ini supaya bisa buka dan pakai aplikasi:
+
+| Langkah | Apa yang dilakukan |
+|--------|---------------------|
+| 1 | Di folder project: `cp backend/.env.docker.example backend/.env.docker` (cukup sekali) |
+| 2 | Jalankan: `docker compose up --build` (tunggu sampai ada log "ready" / tidak error). Biarkan terminal ini tetap jalan. |
+| 3 | Buka **terminal baru**, di folder project: `docker compose exec backend npm run create-admin` → isi nama, email, password admin (cukup sekali). |
+| 4 | Buka browser, ke: **http://localhost:3000** |
+| 5 | **User biasa:** klik "Sign Up" → daftar → login. Atau langsung "Sign In" kalau sudah punya akun. |
+| 6 | **Admin:** di halaman login pilih mode "Admin", lalu Sign In pakai email & password admin yang tadi dibuat. |
+
+Setelah itu kamu sudah "masuk" aplikasi: bisa lihat Home, Dashboard, My Reports, atau (kalau admin) Admin Panel.
+
+---
+
 ## Cara Jalanin Project dengan Docker
 
 ### Pertama kali (setup)
