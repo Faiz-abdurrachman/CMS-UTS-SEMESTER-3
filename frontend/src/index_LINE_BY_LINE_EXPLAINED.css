@@ -1,0 +1,120 @@
+/*
+📌 FILE: index.css (versi dijelaskan baris per baris)
+🧠 Fungsi file ini:
+   File CSS utama aplikasi: mengimpor font dari Google, mendefinisikan directive Tailwind
+   (base, components, utilities), dan menulis sedikit custom CSS untuk body, heading,
+   serta class utility scrollbar-hide.
+🔄 Alur singkat:
+   1. @import font Google (Inter + Playfair Display).
+   2. @tailwind base; components; utilities; (diganti Tailwind saat build).
+   3. @layer base { body & heading styles }.
+   4. @layer utilities { .scrollbar-hide }.
+📦 Analogi dunia nyata:
+   Seperti "buku panduan gaya" satu gedung: dari mana font dipakai, warna dasar, dan
+   aturan kecil seperti "scrollbar tidak terlihat" di beberapa ruangan.
+*/
+
+/* @import = mengimpor CSS dari sumber lain (URL atau file) */
+/* url("...") = alamat Google Fonts; memuat font Inter (beberapa weight) dan Playfair Display */
+/* display=swap = tampilkan teks dulu dengan font fallback, lalu ganti saat font selesai dimuat */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
+
+/* TailwindCSS Directives: saat build, Tailwind akan mengganti tiga baris ini dengan CSS yang di-generate */
+/* @tailwind = directive khusus Tailwind */
+/* base = layer "base": reset/normalize + style dasar elemen (heading, body, dll) */
+@tailwind base;
+
+/* components = layer "components": kelas komponen siap pakai yang bisa dipakai di HTML (biasanya dari @apply) */
+@tailwind components;
+
+/* utilities = layer "utilities": kelas kecil (margin, padding, warna, flex, dll) yang dipakai di class="..." */
+@tailwind utilities;
+
+/* Custom CSS: kita menulis gaya sendiri */
+/* @layer base = masukkan rule di bawah ini ke "layer" base Tailwind (bisa di-override oleh utilities) */
+@layer base {
+  /* body = selector untuk elemen <body> di HTML */
+  body {
+    /* margin: 0; = hapus margin default browser agar tidak ada jarak putih di pinggir */
+    margin: 0;
+
+    /* font-family = urutan font yang dipakai; "Inter" dulu (dari Google), lalu fallback sistem */
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+
+    /* -webkit-font-smoothing = properti vendor prefix (Chrome/Safari) untuk meratakan font */
+    /* antialiased = membuat teks terlihat lebih halus */
+    -webkit-font-smoothing: antialiased;
+
+    /* -moz-osx-font-smoothing = untuk Firefox di macOS; grayscale = smoothing dengan grayscale */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* color = warna teks default untuk body; #1f2937 = abu-abu gelap */
+    color: #1f2937;
+  }
+
+  /* h1, h2, ... h6 = selector untuk semua tingkat heading */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    /* font heading pakai Playfair Display (serif) */
+    font-family: "Playfair Display", serif;
+
+    /* font-weight: 600 = semi-bold */
+    font-weight: 600;
+
+    /* color = warna hijau gelap (#2d5016) untuk semua heading */
+    color: #2d5016;
+  }
+}
+
+/* Custom scrollbar: sembunyikan scrollbar secara visual (konten tetap bisa di-scroll) */
+/* @layer utilities = masukkan ke layer utilities agar prioritasnya sesuai Tailwind */
+@layer utilities {
+  /* .scrollbar-hide = kelas yang bisa kita pakai di elemen (misal div dengan overflow) */
+  /* ::-webkit-scrollbar = pseudo-element untuk scrollbar di browser WebKit (Chrome, Safari, Edge) */
+  .scrollbar-hide::-webkit-scrollbar {
+    /* display: none = scrollbar tidak ditampilkan */
+    display: none;
+  }
+
+  /* .scrollbar-hide (tanpa pseudo) = rule untuk elemen itu sendiri */
+  /* -ms-overflow-style: none = sembunyikan scrollbar di IE / Edge lama */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+
+    /* scrollbar-width: none = sembunyikan scrollbar di Firefox */
+    scrollbar-width: none;
+  }
+}
+
+/*
+🔄 Alur eksekusi file (step by step)
+1. Saat CSS dimuat, @import dijalankan → browser meminta font dari Google Fonts.
+2. Saat build (Tailwind), @tailwind base/components/utilities diganti dengan CSS yang di-generate dari konfigurasi Tailwind.
+3. @layer base: rule body dan h1–h6 masuk ke layer base (urutan dengan Tailwind base).
+4. @layer utilities: .scrollbar-hide masuk ke layer utilities. Di runtime, elemen dengan class scrollbar-hide akan punya scrollbar disembunyikan.
+
+🧠 Ringkasan versi manusia awam
+   "index.css itu file gaya utama: pakai font Inter dan Playfair dari internet, lalu pakai sistem
+   Tailwind (base, components, utilities), plus aturan sendiri untuk body, heading, dan cara
+   sembunyikan scrollbar."
+
+📘 Glosarium
+   - @import: mengimpor CSS dari URL atau file lain.
+   - @tailwind: directive Tailwind yang diganti saat build.
+   - @layer: memasukkan rule ke "layer" Tailwind (base, components, utilities) untuk urutan prioritas.
+   - font-family: daftar font (dengan fallback).
+   - vendor prefix: -webkit-, -moz- untuk properti yang dulu eksperimental.
+   - pseudo-element: ::-webkit-scrollbar (bagian dari elemen, bukan elemen terpisah).
+   - scrollbar-width: properti CSS untuk mengatur tampilan scrollbar (Firefox).
+
+⚠️ Kesalahan umum pemula + contoh
+   - Menaruh @tailwind di tengah-tengah file atau setelah banyak rule → lebih rapi di atas.
+   - Lupa bahwa Tailwind hanya generate class yang benar-benar dipakai di kode; custom class seperti .scrollbar-hide aman di @layer utilities.
+   - Mengira @import url(...) bisa import file .css lokal dengan path sembarang; untuk modul pakai import di JS.
+*/
