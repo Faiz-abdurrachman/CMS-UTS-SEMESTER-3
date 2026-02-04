@@ -1,11 +1,12 @@
 # Dependencies
 node_modules/
 
-# Environment variables
+# Environment
 .env
 .env.docker
 .env.local
 .env.*.local
+.env.production
 
 # Logs
 *.log
@@ -24,24 +25,20 @@ Thumbs.db
 *.swo
 *~
 
-# Build outputs
+# Build
 dist/
 build/
 *.tsbuildinfo
 
-# Uploads
+# Uploads (local)
 uploads/
 
-# Docs
+# Docs (optional; keep only README in repo)
 docs/
 
-# Temporary files
+# Temporary
 COMMIT_MESSAGE.txt
 
-#file md
-# AUDIT_DAN_REFACTORING_PLAN.md
-# PANDUAN_BEDAH_KODE.md
-
-.env.docker
-.env
-.env.production
+# Explanation / tutorial files (do not commit to production branch)
+*_EXPLAINED*
+*_LINE_BY_LINE_EXPLAINED*

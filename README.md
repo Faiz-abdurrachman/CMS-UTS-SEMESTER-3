@@ -1,258 +1,282 @@
 # CMS Lost & Found
 
-**Platform Manajemen Barang Hilang dan Ditemukan Terpusat**
-
-![Status](https://img.shields.io/badge/Status-Active-success)
-![Node](https://img.shields.io/badge/Node-%3E%3D18-green)
-![License](https://img.shields.io/badge/License-ISC-blue)
-
-Aplikasi web *full-stack* yang dirancang untuk memfasilitasi pelaporan dan pencarian barang hilang di lingkungan komunitas atau institusi. Menggunakan arsitektur modern dengan pemisahan *concern* yang jelas antara Backend (Express.js) dan Frontend (React.js) dalam satu repositori (*Monorepo*).
+Full-stack web application for reporting and managing lost and found items in a community or institutional setting. Backend (Node.js, Express, MySQL) and frontend (React, Vite) are in a single monorepo.
 
 ---
 
-## 📋 Daftar Isi
+## Features
 
-1. [Fitur Lengkap](#-fitur-lengkap)
-2. [Teknologi](#-teknologi)
-3. [Prasyarat Sistem](#-prasyarat-sistem)
-4. [Instalasi dan Setup](#-instalasi-dan-setup)
-5. [Setup Database (Detail)](#-setup-database-detail)
-6. [Konfigurasi Environment](#-konfigurasi-environment)
-7. [Panduan Penggunaan](#-panduan-penggunaan)
-8. [Dokumentasi API](#-dokumentasi-api)
-9. [Struktur Proyek](#-struktur-proyek)
-10. [Troubleshooting](#-troubleshooting)
+**User**
+- Register and login with JWT.
+- Report lost items (name, description, location, date, optional photo).
+- Report found items (same fields).
+- Dashboard with lost, found, and resolved lists; search and filter.
+- My Reports: view and track own submissions (pending / approved / resolved).
 
----
-
-## 🚀 Fitur Lengkap
-
-### Untuk Pengguna (User)
-*   **Manajemen Akun**: Registrasi dan Login aman dengan enkripsi password.
-*   **Pelaporan Barang**:
-    *   Lapor Barang Hilang (*Lost Item*) dengan detail (Nama, Deskripsi, Lokasi, Tanggal).
-    *   Lapor Barang Ditemukan (*Found Item*) untuk membantu pemilik asli.
-    *   Unggah foto barang (mendukung format gambar umum).
-*   **Dashboard Personal**: Memantau status laporan yang diajukan (Pending/Approved/Resolved).
-*   **Pencarian & Filter**: Mencari barang berdasarkan kata kunci atau memfilter berdasarkan status.
-
-### Untuk Administrator
-*   **Dashboard Statistik**: Ringkasan jumlah pengguna, total barang, dan laporan yang butuh tindakan.
-*   **Sistem Validasi**:
-    *   Meninjau laporan masuk.
-    *   Menyetujui (*Approve*) laporan yang valid agar muncul di publik.
-    *   Menolak (*Reject*) laporan spam atau tidak layak.
-*   **Manajemen Data**: Akses penuh untuk mengedit atau menghapus data barang dan pengguna jika diperlukan.
-*   **Penyelesaian Kasus**: Menandai kasus sebagai selesai (*Resolved*) dengan catatan penyelesaian.
+**Admin**
+- Dashboard with statistics (users, reports, pending, approved).
+- Validate reports: approve or reject; mark as resolved with optional note.
+- Edit or delete any report; delete users (admin accounts protected).
+- Manage Reports and Manage Users tabs.
 
 ---
 
-## 🛠 Teknologi
+## Tech Stack
 
-| Komponen | Teknologi | Keterangan |
-| :--- | :--- | :--- |
-| **Frontend** | React.js (Vite) | Library UI modern dan cepat |
-| **Styling** | TailwindCSS + DaisyUI | Framework CSS utility-first |
-| **Backend** | Node.js + Express | Runtime server-side JavaScript |
-| **Database** | MySQL | Relational Database Management System |
-| **Driver DB** | mysql2 (Pool) | Koneksi database efisien |
-| **Auth** | JWT + bcrypt | JSON Web Token untuk sesi stateless |
-| **Security** | Helmet, Rate Limit | Perlindungan header dan anti-spam |
-| **Upload** | Multer | Middleware penanganan file multipart |
+| Layer     | Technology        |
+|----------|-------------------|
+| Frontend | React 18, Vite, React Router, TailwindCSS, DaisyUI, Axios, react-hot-toast |
+| Backend  | Node.js, Express 5, mysql2 (pool), bcrypt, jsonwebtoken, multer, helmet, express-rate-limit, cors |
+| Database | MySQL 8 |
+| Deploy   | Vercel (frontend + serverless API), cloud MySQL (e.g. PlanetScale, Railway) |
 
 ---
 
-## 💻 Prasyarat Sistem
+## Prerequisites
 
-Sebelum instalasi, pastikan perangkat Anda memiliki:
-
-1.  **Node.js**: Versi 18.x atau lebih baru.
-2.  **MySQL Server**: Bisa dari XAMPP, Laragon, atau Docker.
-3.  **Git**: Untuk manajemen versi source code.
-4.  **Terminal/Command Prompt**: Untuk menjalankan perintah CLI.
+- Node.js 18 or newer
+- MySQL 8 (local: XAMPP, Laragon, or Docker; production: PlanetScale, Railway, etc.)
+- Git
 
 ---
 
-## 📥 Instalasi dan Setup
+## Installation (local)
 
-### 1. Kloning Repositori
+**1. Clone and install dependencies**
+
 ```bash
 git clone https://github.com/Faiz-abdurrachman/CMS-UTS-SEMESTER-3.git
 cd CMS-UTS-SEMESTER-3
-```
-
-### 2. Instalasi Dependensi
-Jalankan perintah berikut di root folder untuk menginstal dependensi Backend dan Frontend sekaligus:
-
-```bash
 npm run install:all
 ```
 
-> **Catatan**: Jika gagal, Anda bisa menginstal manual:
-> *   `cd backend && npm install`
-> *   `cd frontend && npm install`
+If that fails, install manually:
 
----
-
-## 🗄️ Setup Database (Detail)
-
-Pilih salah satu metode yang sesuai dengan lingkungan pengembangan Anda.
-
-### Opsi A: Menggunakan XAMPP / phpMyAdmin
-1.  Buka **XAMPP Control Panel** dan start **Apache** & **MySQL**.
-2.  Buka browser ke `http://localhost/phpmyadmin`.
-3.  Buat database baru dengan nama `lostfound_db`.
-4.  Pilih tab **Import**.
-5.  Pilih file `backend/database/schema.sql`.
-6.  Klik **Go** atau **Kirim**.
-
-### Opsi B: Menggunakan Terminal / CLI
-Pastikan mysql sudah ada di PATH sistem Anda.
 ```bash
-mysql -u root -p -e "CREATE DATABASE lostfound_db"
+cd backend && npm install
+cd ../frontend && npm install
+```
+
+**2. Database**
+
+Create a database named `lostfound_db` and load the schema.
+
+Using MySQL CLI:
+
+```bash
+mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS lostfound_db;"
 mysql -u root -p lostfound_db < backend/database/schema.sql
 ```
 
-### Membuat Akun Admin
-Untuk keamanan, akun admin tidak dibuat secara otomatis. Gunakan script yang tersedia:
+Using phpMyAdmin (XAMPP/Laragon): create database `lostfound_db`, then Import `backend/database/schema.sql`.
+
+**3. Environment (backend)**
+
+```bash
+cd backend
+cp .env.example .env
+```
+
+Edit `backend/.env`:
+
+```env
+PORT=5000
+NODE_ENV=development
+
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=lostfound_db
+
+JWT_SECRET=use_a_long_random_string_here
+UPLOAD_DIR=uploads
+FRONTEND_URL=http://localhost:3000
+```
+
+Generate a strong JWT secret (optional for local):
+
+```bash
+openssl rand -base64 32
+```
+
+**4. Create admin user**
+
+From repo root:
 
 ```bash
 cd backend
 npm run create-admin
 ```
-Ikuti instruksi di layar untuk memasukkan nama, email, dan password admin.
 
----
+Follow prompts (name, email, password). This is the only way to create an admin; registration is for regular users only.
 
-## ⚙️ Konfigurasi Environment
+**5. Run the app**
 
-Aplikasi membutuhkan konfigurasi variabel lingkungan agar berjalan dengan benar.
-
-1.  Masuk ke folder backend: `cd backend`
-2.  Salin template config: `cp .env.example .env`
-3.  Edit file `.env` dan sesuaikan nilainya:
-
-```ini
-# Server Config
-PORT=5000
-NODE_ENV=development
-
-# Database Config (Sesuaikan dengan setting XAMPP/Local Anda)
-DB_HOST=localhost
-DB_USER=root
-# Kosongkan password jika menggunakan setting default XAMPP
-DB_PASSWORD=
-DB_NAME=lostfound_db
-
-# Keamanan (Gunakan string acak yang panjang & rumit)
-JWT_SECRET=rahasia_ini_harus_diganti_saat_production
-
-# Upload & Frontend
-UPLOAD_DIR=uploads
-FRONTEND_URL=http://localhost:3000
-```
-
----
-
-## ▶️ Menjalankan Aplikasi
-
-Kembali ke folder root (`CMS-UTS-SEMESTER-3`), lalu jalankan:
+From repo root:
 
 ```bash
 npm run dev
 ```
 
-Perintah ini akan menjalankan:
-1.  **Backend Server** di port 5000
-2.  **Frontend Dev Server** di port 3000
+- Backend: http://localhost:5000  
+- Frontend: http://localhost:3000  
 
-Buka browser Anda di: **[http://localhost:3000](http://localhost:3000)**
-
----
-
-## � Panduan Penggunaan
-
-### Skenario Pengguna Biasa
-1.  **Daftar Akun**: Klik "Sign Up" di pojok kanan atas, isi data diri.
-2.  **Login**: Masuk menggunakan email/password.
-3.  **Lapor Barang**:
-    *   Klik tombol **"I just lost my stuff"** (Saya kehilangan barang) atau **"I found someone stuff"** (Saya menemukan barang).
-    *   Isi formulir dengan lengkap.
-    *   Unggah foto barang agar lebih mudah dikenali.
-4.  **Lihat Status**: Buka menu **"My Reports"** di navbar untuk melihat apakah laporan Anda sudah disetujui admin.
-
-### Skenario Administrator
-1.  **Login Admin**: Di halaman Login, klik tab/tombol **"Admin"** (atau link khusus jika ada), lalu login.
-2.  **Validasi**:
-    *   Di Dashboard Admin, lihat tabel "Pending Reports".
-    *   Klik **Approve** jika laporan valid/layak tayang.
-    *   Klik **Reject** jika laporan tidak jelas/spam.
-3.  **Manajemen**: Gunakan menu Admin Panel untuk menghapus user yang melanggar aturan atau mengupdate info barang.
+Open http://localhost:3000 in the browser. Use the admin email/password to log in as Admin and open the Admin Panel.
 
 ---
 
-## � Dokumentasi API
-
-Base URL untuk Development: `http://localhost:5000/api`
-
-### Endpoint Publik
-*   `POST /auth/register`
-    *   Body: `{ "name": "...", "email": "...", "password": "..." }`
-*   `POST /auth/login`
-    *   Body: `{ "email": "...", "password": "..." }`
-*   `GET /items`
-    *   Query Params: `?search=...&status=lost|found`
-
-### Endpoint Terproteksi (Butuh Header Authorization)
-Header: `Authorization: Bearer <token_jwt_anda>`
-
-*   `GET /items/my-reports` - Mendapatkan history laporan user.
-*   `POST /items/lost` - Upload laporan barang hilang (Form-Data).
-*   `POST /items/found` - Upload laporan barang temuan (Form-Data).
-
-### Endpoint Admin (Butuh Token Admin)
-*   `GET /admin/statistics` - Data ringkasan dashboard.
-*   `PUT /admin/items/:id/validate` - Update status validasi.
-    *   Body: `{ "validation_status": "approved" }`
-
----
-
-## ❓ Troubleshooting
-
-**Masalah**: Error "Connect ECONNREFUSED 127.0.0.1:3306"
-**Solusi**: Pastikan layanan MySQL (XAMPP/Laragon) sudah dinyalakan (Start).
-
-**Masalah**: Gagal Login (Invalid Credentials) terus menerus.
-**Solusi**: Pastikan password user di database sudah ter-hash (terenkripsi). Jangan insert user manual langsung via SQL tanpa hashing password. Gunakan fitur Register di web atau script `create-admin`.
-
-**Masalah**: Gambar tidak muncul.
-**Solusi**: Pastikan folder `backend/uploads` ada. Aplikasi akan mencoba menyajikan file statis dari folder tersebut.
-
----
-
-## 📂 Struktur Direktori
+## Project structure
 
 ```
 CMS-UTS-SEMESTER-3/
-├── api/                  # Vercel Entry Point
-├── backend/              # Server-side Application
-│   ├── config/           # Koneksi DB
-│   ├── controllers/      # Logika Bisnis
-│   ├── middleware/       # Autentikasi & Upload
-│   ├── models/           # Query Database
-│   ├── routes/           # Routing API
-│   ├── database/         # Schema SQL
-│   └── uploads/          # Folder Foto (Local Dev)
-├── frontend/             # Client-side Application
+├── api/
+│   └── index.js              # Vercel serverless entry (uses backend server)
+├── backend/
+│   ├── config/
+│   │   └── db.js             # MySQL pool
+│   ├── controllers/
+│   ├── middleware/            # auth, admin, upload
+│   ├── models/
+│   ├── routes/
+│   ├── database/
+│   │   ├── schema.sql
+│   │   └── create-admin.sql
+│   ├── scripts/
+│   │   └── createAdmin.js
+│   ├── server.js
+│   ├── .env.example
+│   └── .env.docker.example
+├── frontend/
 │   ├── src/
-│   │   ├── components/   # UI Komponen
-│   │   ├── contexts/     # State Management (Auth)
-│   │   ├── pages/        # Halaman Website
-│   │   └── hooks/        # Custom React Hooks
-└── vercel.json           # Konfigurasi Cloud
+│   │   ├── components/
+│   │   ├── contexts/          # AuthContext
+│   │   ├── hooks/             # useAuth
+│   │   ├── pages/
+│   │   ├── api.js             # Axios instance + interceptors
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── index.html
+│   ├── vite.config.js
+│   ├── tailwind.config.js
+│   └── postcss.config.js
+├── package.json               # install:all, dev, build:frontend
+├── vercel.json                # Build and route config for Vercel
+├── docker-compose.yml         # Optional: local MySQL + backend + frontend
+└── README.md
 ```
 
 ---
 
-Dibuat untuk memenuhi tugas Praktikum Web CMS Semester 3.
-Dokumentasi diperbarui: Februari 2026.
+## Deployment (Vercel + cloud MySQL)
+
+The repo is set up for Vercel: frontend as static build, backend as serverless via `api/index.js`. You need a cloud MySQL instance (e.g. PlanetScale or Railway free tier).
+
+**1. Database in the cloud**
+
+- **PlanetScale:** Create a database and branch, then in Connect get host, user, password, database name. Enable SSL; set `DB_SSL=true` in production.
+- **Railway:** Add MySQL to the project and copy the provided env vars.
+
+Run the schema once against this database (e.g. from your machine):
+
+```bash
+mysql -h YOUR_HOST -u YOUR_USER -p YOUR_DATABASE < backend/database/schema.sql
+```
+
+**2. Vercel project**
+
+- Import the GitHub repo as a new Vercel project.
+- Root directory: leave as default (repo root).
+- Install command: `npm run install:all`
+- Build/output: leave default (Vercel uses `vercel.json`).
+
+**3. Environment variables (Vercel)**
+
+Add in Project Settings > Environment Variables:
+
+| Variable       | Description |
+|----------------|-------------|
+| NODE_ENV       | `production` |
+| DB_HOST        | MySQL host from PlanetScale/Railway |
+| DB_USER        | MySQL user |
+| DB_PASSWORD    | MySQL password |
+| DB_NAME        | Database name (e.g. `lostfound_db`) |
+| DB_SSL         | `true` for PlanetScale; omit or `false` if not needed |
+| JWT_SECRET     | Long random string (e.g. `openssl rand -base64 32`) |
+| FRONTEND_URL   | Your Vercel app URL (e.g. `https://your-app.vercel.app`) |
+
+After the first deploy, set `FRONTEND_URL` to the exact Vercel URL (no trailing slash) and redeploy so CORS works.
+
+**4. Create admin in production**
+
+Run the create-admin script once with production DB and JWT secret (env vars set locally or in a one-off environment):
+
+```bash
+cd backend
+export DB_HOST=... DB_USER=... DB_PASSWORD=... DB_NAME=lostfound_db DB_SSL=true JWT_SECRET=...
+node scripts/createAdmin.js
+```
+
+Then log in on the deployed site with that admin email and password.
+
+**5. File uploads on Vercel**
+
+Serverless functions do not have persistent disk. Files uploaded to the backend may be lost on cold starts or redeploys. For production, consider storing uploads in external storage (e.g. Cloudinary, S3, Vercel Blob) and saving only URLs in the database.
+
+---
+
+## API overview
+
+Base URL (local): `http://localhost:5000/api`  
+Base URL (Vercel): `https://your-app.vercel.app/api`
+
+**Public**
+- `POST /auth/register` — body: `{ name, email, password }`
+- `POST /auth/login` — body: `{ email, password }`
+- `GET /items` — list items (optional query: search, status)
+
+**Protected (header: `Authorization: Bearer <token>`)**  
+- `GET /items/my-reports`  
+- `POST /items/lost` — FormData (name, description, location, date_occured, status=lost, optional image)  
+- `POST /items/found` — FormData (same, status=found)
+
+**Admin**
+- `GET /admin/statistics`  
+- `GET /admin/items`, `GET /admin/users`  
+- `PUT /admin/items/:id/validate` — body: `{ validation_status: "approved" \| "rejected" }`  
+- `PUT /admin/items/:id/resolve` — body: `{ resolved_note?: string }`  
+- `PUT /admin/items/:id` — update item (FormData)  
+- `DELETE /admin/items/:id`, `DELETE /admin/users/:id`
+
+---
+
+## Docker (optional, local)
+
+From repo root:
+
+```bash
+docker compose up --build
+```
+
+Runs MySQL (port 3306), backend (5000), and frontend (3000). Use `backend/.env.docker.example` as reference for env; override `DB_HOST=mysql` in compose.
+
+---
+
+## Troubleshooting
+
+**ECONNREFUSED 127.0.0.1:3306**  
+Start MySQL (XAMPP/Laragon/Docker). Check `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` in `.env`.
+
+**Login always invalid**  
+Do not insert users manually with plain passwords. Use Register or `npm run create-admin` in backend so passwords are hashed.
+
+**Images not loading**  
+Ensure `backend/uploads` exists; backend serves `/uploads` from there. In production, use external storage.
+
+**CORS errors after deploy**  
+Set `FRONTEND_URL` in Vercel to the exact app URL (no trailing slash) and redeploy.
+
+---
+
+License: ISC.  
+Documentation updated: February 2026.
