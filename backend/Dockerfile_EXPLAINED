@@ -1,0 +1,38 @@
+# ============================================
+# PENJELASAN FILE: Dockerfile (backend)
+# ============================================
+# Fungsi: Instruksi untuk membangun "gambar" (image) Docker yang berisi lingkungan jalannya backend
+#         (Node 18, dependency, kode). Saat "docker compose up", image ini dipakai untuk container backend.
+# Alur: 1) Pakai base image Node 18 Alpine; 2) Set kerja di /app; 3) Copy package*.json, npm install;
+#       4) Copy kode; 5) Expose port 5000; 6) Perintah jalan = npm run dev.
+# Analogi: Resep masakan: bahan (base image, package.json), cara masak (COPY, RUN), dan cara menyajikan (CMD).
+# ============================================
+
+# Development: Node 18, install deps, jalankan nodemon
+# FROM = pakai gambar dasar; node:18-alpine = Node.js versi 18, distro Alpine (kecil)
+FROM node:18-alpine
+
+# WORKDIR = folder kerja di dalam container; perintah berikut jalan di /app
+WORKDIR /app
+
+# Install dependencies dulu (cache layer)
+# COPY = salin file dari host ke container; package*.json = package.json dan package-lock.json
+COPY package*.json ./
+# RUN = jalankan perintah saat build; npm install = pasang dependency
+RUN npm install
+
+# Kode di-mount via volume; ini cuma default
+# COPY . . = salin semua file di folder backend ke /app di container
+COPY . .
+
+# EXPOSE = informasi bahwa container mendengarkan di port 5000 (tidak membuka port; docker-compose yang map)
+EXPOSE 5000
+
+# CMD = perintah default saat container dijalankan; npm run dev = nodemon server.js
+CMD ["npm", "run", "dev"]
+
+# ============================================
+# RINGKASAN: Build image Node 18 + deps + kode; jalankan npm run dev. Port 5000.
+# ISTILAH: Image = snapshot lingkungan; Container = instance yang jalan; FROM = base image; CMD = perintah default.
+# KESALAHAN PEMULA: Lupa COPY package*.json sebelum RUN npm install (cache tidak terpakai); salah WORKDIR sehingga COPY salah path.
+# ============================================

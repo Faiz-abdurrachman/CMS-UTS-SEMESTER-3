@@ -1,0 +1,65 @@
+/* ============================================
+   PENJELASAN FILE: src/index.css
+   ============================================
+   Fungsi: File CSS global untuk aplikasi. Memuat font (Inter, Playfair Display),
+   directive Tailwind (@tailwind base/components/utilities), dan custom style
+   untuk body serta heading (font, warna). Juga class utility .scrollbar-hide.
+   Alur: Vite/PostCSS memproses file ini → @tailwind di-expand jadi ribuan utility class;
+   @layer base mengatur elemen dasar; @layer utilities menambah class scrollbar-hide.
+   Analogi: Seperti aturan dasar gedung: font tulisan, warna judul, dan satu aturan
+   "sembunyikan scrollbar" untuk elemen yang pakai class scrollbar-hide.
+   ============================================ */
+
+/* ============================================
+   FILE: src/index.css
+   DESKRIPSI: File CSS utama dengan TailwindCSS directives
+   ============================================ */
+
+/* Import Google Fonts: Inter (sans), Playfair Display (serif) */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
+
+/* @tailwind = directive Tailwind: base = reset & default; components = class komponen; utilities = class utility (mt-4, flex, dll) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @layer base = aturan untuk elemen dasar HTML; tidak perlu class, otomatis ke body dan h1-h6 */
+@layer base {
+  body {
+    margin: 0;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #1f2937;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    color: #2d5016;
+  }
+}
+
+/* @layer utilities = menambah class utility; .scrollbar-hide = sembunyikan scrollbar (webkit + standard) */
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/*
+---------- RINGKASAN: Import font → @tailwind (base, components, utilities) → base body & heading → utility scrollbar-hide.
+---------- ISTILAH: @tailwind = directive Tailwind; @layer = kelompok aturan; base = default elemen; utilities = class helper.
+---------- KESALAHAN PEMULA: Menghapus @tailwind base/components/utilities → class Tailwind (flex, p-4, dll) tidak ter-generate.
+*/
